@@ -3,27 +3,49 @@
 #include <string>
 #include "Files.h"
 
-
-void getProductAreaFromFiles(Product* product,string path) {
-
+int calculateSizeofFile(string path)
+{
+	int cont = 0;
 	fstream file;
 	file.open(path, ios::in);
-	string line="";
+	string line = "";
+
+	if (file.is_open()) {
+
+		while (getline(file, line)) {  // to know how many lines there are in the file so you can initialize the array with that value
+			cont += 1;
+		}
+	}
+	else
+	{
+		cout << "Erro ao abrir o ficheiro " << path << " .Verificar novamente a localização" << endl;
+	}
+
+	file.close();
+	return cont;
+}
+
+
+string* getContentFromFiles(string path, int sizeofFile) {  //receives the path to the file and the number of lines in that file
+
+	int cont = 0; //used in the while loop to store the lines in the index
+	fstream file;
+	file.open(path, ios::in);
+	string line = " ";
+
+	file.clear(); // when you read the entire page, like above, you need to use this to be able to get back to the beggining
+	file.seekg(0, ios::beg);  //set possition of the file to the beggining
+
+	string* arrayFileContent = new string[sizeofFile];  //the string array that will contain every line of the file
 	
 	if (file.is_open()) {
-		while (getline(file, line)) {
-			product->areaLenght++;
-				
-		}
-		product->areaArray = new string[product->areaLenght];
 
-		file.seekg(0, ios::beg);// sets the position back to beggining
-		int i = 0;
-		while (getline(file,line))
+		while (getline(file, line))
 		{
-			product->areaArray[i] = line; //
-			i++;
+			arrayFileContent[cont] = line;  //put the values inside of the array, this displays a warning but just ignore it.
+			cont++;
 		}
+
 	}
 	else
 	{
@@ -31,112 +53,7 @@ void getProductAreaFromFiles(Product* product,string path) {
 	}
 	
 	file.close();
-}
+	
+	return arrayFileContent;
 
-void getProductProviderFromFile(Product* product, string path) {
-
-	fstream file;
-	file.open(path, ios::in);
-	string line = "";
-
-	if (file.is_open()) {
-		while (getline(file, line)) {
-			product->providerLenght++;
-		}
-		product->providerArray = new string[product->providerLenght];
-
-		file.seekg(0, ios::beg);// sets the position back to beggining
-		int i = 0;
-		while (getline(file, line))
-		{
-			product->providerArray[i] = line; //inserts the content to the array
-			i++;
-		}
-	}
-	else
-	{
-		cout << "Erro ao abrir o ficheiro " << path << " .Verificar novamente a localização" << endl;
-	}
-
-	file.close();
-}
-
-void getProductNamesFromFile(Product* product, string path) {
-	fstream file;
-	file.open(path, ios::in);
-	string line = "";
-
-	if (file.is_open()) {
-		while (getline(file, line)) {
-			product->nameLenght++;
-		}
-		product->nameArray = new string[product->nameLenght];
-
-		file.seekg(0, ios::beg);// sets the position back to beggining
-		int i = 0;
-		while (getline(file, line))
-		{
-			product->nameArray[i] = line; //inserts the content to the array
-			i++;
-		}
-	}
-	else
-	{
-		cout << "Erro ao abrir o ficheiro " << path << " .Verificar novamente a localização" << endl;
-	}
-
-	file.close();
-}
-void getSectorAreaFromFiles(Sector* sector, string path){
-	fstream file;
-	file.open(path, ios::in);
-	string line = "";
-
-	if (file.is_open()) {
-		while (getline(file, line)) {
-			sector->sectorLenght++;
-		}
-		sector->sectorArray = new string[sector->sectorLenght];
-
-		file.seekg(0, ios::beg);// sets the position back to beggining
-		int i = 0;
-		while (getline(file, line))
-		{
-			sector->sectorArray[i] = line; //inserts the content to the array
-			i++;
-		}
-	}
-	else
-	{
-		cout << "Erro ao abrir o ficheiro " << path << " .Verificar novamente a localização" << endl;
-	}
-
-	file.close();
-}
-
-void getSectorAreaFromFiles(Sector* sector, string path){
-	fstream file;
-	file.open(path, ios::in);
-	string line = "";
-
-	if (file.is_open()) {
-		while (getline(file, line)) {
-			sector->areaLenght++;
-		}
-		sector->areaArray = new string[sector->areaLenght];
-
-		file.seekg(0, ios::beg);// sets the position back to beggining
-		int i = 0;
-		while (getline(file, line))
-		{
-			sector->areaArray[i] = line; //inserts the content to the array
-			i++;
-		}
-	}
-	else
-	{
-		cout << "Erro ao abrir o ficheiro " << path << " .Verificar novamente a localização" << endl;
-	}
-
-	file.close();
 }
