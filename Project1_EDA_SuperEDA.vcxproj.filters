@@ -18,12 +18,27 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Files.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperMarket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Management.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Structs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Files.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperMarket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Management.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

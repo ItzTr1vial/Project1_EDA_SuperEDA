@@ -1,5 +1,2 @@
 ﻿  Files.cpp
-  Main.cpp
-C:\Users\hugol\OneDrive\Ambiente de Trabalho\EDA\Projeto1_EDA_SuperEDA\Project1_EDA_SuperEDA\Main.cpp(9,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
   Project1_EDA_SuperEDA.vcxproj -> C:\Users\hugol\OneDrive\Ambiente de Trabalho\EDA\Projeto1_EDA_SuperEDA\Project1_EDA_SuperEDA\Debug\Project1_EDA_SuperEDA.exe
