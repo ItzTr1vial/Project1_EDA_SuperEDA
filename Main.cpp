@@ -19,18 +19,16 @@ int main() {
 	string pathArea ="D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop\\areas.txt" ;
 	string pathProvider = "D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop\\fornecedores.txt";
 	string pathName = "D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop\\nome.txt";
-	
-	int sizeofArea = calculateSizeofFile(pathArea);  //get the size of this file
-	int sizeofProvider = calculateSizeofFile(pathProvider);  //get the size of this file
-	int sizeofName = calculateSizeofFile(pathName); //get the size of this file
 
-	string* contentofArea = getContentFromFiles(pathArea, sizeofArea);  
-	string* contentofProvider = getContentFromFiles(pathProvider, sizeofProvider);
-	string* contentofName = getContentFromFiles(pathName, sizeofName);               //this are the string with the content of the files we will be using
+	DataNeeded* interinData = new DataNeeded;  //structure that will contain all the arrays and data that we need to use the functions
 
-	
+	interinData->SizeofArea = calculateSizeofFile(pathArea);  //size of file area
+	interinData->SizeofProvider = calculateSizeofFile(pathProvider);  //size of file providers
+	interinData->SizeofName = calculateSizeofFile(pathName);  //size of file name
+	interinData->areaArray = getContentFromFiles(pathArea, interinData->SizeofArea); //content of file area
+	interinData->providerArray = getContentFromFiles(pathProvider, interinData->SizeofProvider); //content of file provider
+	interinData->nameArray = getContentFromFiles(pathName, interinData->SizeofName); //content of file name
+
 	return 0;
-
-
 
 }
