@@ -3,6 +3,7 @@
 #include <string>
 #include "Files.h"
 
+
 int calculateSizeofFile(string path)
 {
 	int cont = 0;
@@ -16,8 +17,7 @@ int calculateSizeofFile(string path)
 			cont += 1;
 		}
 	}
-	else
-	{
+	else{
 		cout << "Erro ao abrir o ficheiro " << path << " .Verificar novamente a localização" << endl;
 	}
 
@@ -47,8 +47,7 @@ string* getContentFromFiles(string path, int sizeofFile) {  //receives the path 
 		}
 
 	}
-	else
-	{
+	else{
 		cout << "Erro ao abrir o ficheiro "<< path <<" .Verificar novamente a localização"  << endl;
 	}
 	

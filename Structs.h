@@ -6,12 +6,14 @@ using namespace std;
 struct DataNeeded  //this structure is gonna be used to pass all the data at once to the functions otherwise we need to pass all the parameters separatly
 {
 	int numberofSectors = 0;
-	int SizeofArea = 0;
-	int SizeofProvider = 0;
-	int SizeofName = 0;
+	int sizeofArea = 0;
+	int sizeofProvider = 0;
+	int sizeofName = 0;
+	int numberofProductsToCreate = 50; //50 because in the beggining you need to create 50 products, this will change as the program goes;
 	string* areaArray = new string;
 	string* providerArray = new string;
 	string* nameArray = new string;
+	string* areasChoosen = new string;
 };
 
 
@@ -46,13 +48,6 @@ struct Sector
 
 struct Storage
 {
-	//usar uma fila para definir o armazem, visto que temos de adicionar elementos numa extremidade e tirar na outra;
+
 };
-
-
-struct SuperMarket
-{
-	Sector* SectorArray; // On my mind a supermarket its an array of sector´s it makes sense
-};
-
 
