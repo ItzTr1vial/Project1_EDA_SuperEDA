@@ -1,9 +1,10 @@
 #include<iostream>
 #include<string>
 #include<stdlib.h>
+#include<iomanip>
+#include "SuperMarket.h"
 #include"Files.h"
 #include"Structs.h"
-
 using namespace std;
 
 
@@ -17,13 +18,20 @@ void inicializeSectors(const DataNeeded* interinData, Sector* superEDA) //using 
 		superEDA[i].sectorIdentifier = characters[i];  //giving the sectores their letters
 		superEDA[i].maxNumberOfProducts = rand() % 6 + 5;  //giving a max numbers of products between 5 and 10 to each sector
 
-		cout << "Digite o nome do responsavel da seccao " << superEDA[i].sectorIdentifier << ": ";
+		cout << "Digite o nome do responsável da secção " << superEDA[i].sectorIdentifier << ": ";
 		getline(cin, nome);
+		
+			if (nome == "\0") { // in case the inserted name equals an empty string.
+				cout << "Insira novamente um nome válido!" << endl;
+				getline(cin, nome);
+			}
+		
 		superEDA[i].personInCharge = nome;  //asking the user for the name of the responsable for each section
 
 		superEDA[i].area = interinData->areaArray[rand() % interinData->sizeofArea];  //going to the array area and choosing a random area for each sector
+		
 	}
-
+	system("CLS");
 }
 
 string* getAreasChoosen(const DataNeeded* interinData, const Sector* superEDA)
@@ -55,7 +63,57 @@ void inicializeProducts(const DataNeeded* interinData, Product* allProducts)
 			price += 1;
 
 		allProducts[i].price = price; //gives that price for that product
+		
+	}
+	
+}
+void initializeStorage(Product* allProducts) { // give 50 random products to the store, WILL NEED TO BE WORKED LATER BECAUSE OF THE RESTRICTIONS NWO WE HAVE A BASE I guess
+
+	cout << "\nArmazém\n" <<endl;
+	
+	for (int i = 0; i < 50; i++)
+	{
+		cout << "Produto: " << allProducts[i].name << " | " <<
+			"Área: " << allProducts[i].area << " | " <<
+			"Preço: " << allProducts[i].price << endl;
+
 	}
 }
+ 
+void menuSupermarket(const DataNeeded* interinData, Sector* superEda, Product* allProducts) { // it will need debug on the sewitch case
 
+
+	for (int i = 0; i < interinData->numberofSectors; i++) {
+		cout << "Sector:" << setw(3) << superEda[i].sectorIdentifier << setw(10) << " | " <<
+			"Responsável:" << setw(3) << superEda[i].personInCharge << setw(10) << " | " <<
+			"Capacidade:" << setw(3) << superEda[i].maxNumberOfProducts << setw(10) << " | " <<
+			"Produtos:" << setw(3) << superEda[i].quantityOfProducts << setw(10) << "| " <<
+			"Área:" << setw(3) << superEda[i].area << endl;
+		// atribution from storage so sector missing
+	}
+
+	while (true)
+	{
+		initializeStorage(allProducts); // i think its working yeahhh
+		char option;
+		cout << "Insira a seua opção:" << endl;
+		cout << "(s)eguinte" << setfill('*') << setw(15) << "(g)estão" << endl;
+		cout << "Selecione a sua opção" << endl;
+		cin >> option;
+		switch (option)
+		{
+		case 's':
+			// buy funtions must be done
+			break;
+		case 'g':
+			//management menu
+			break;
+
+		default:
+			cout << "Inseriu uma opção inválida";
+			break;
+
+		}
+	}
+}
 

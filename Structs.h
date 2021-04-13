@@ -46,8 +46,4 @@ struct Sector
 };
 
 
-struct Storage
-{
-
-};
 

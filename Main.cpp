@@ -13,12 +13,17 @@ using namespace std;
 int main() {
 	srand(time(NULL));
 	locale::global(locale(""));
+ 
+	string pathArea = "areas.txt";//D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop
+	string pathProvider = "fornecedores.txt";// D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA - Develop
+	string pathName = "nome.txt"; // D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Developsd
 
-	string pathArea = "D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop\\areas.txt";
-	string pathProvider = "D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop\\fornecedores.txt";
-	string pathName = "D:\\tonif\\Universidade\\EDA\\Projeto\\Project1_EDA_SuperEDA-Develop\\nome.txt";
 
 	DataNeeded* interinData = new DataNeeded;  //structure that will contain all the arrays and data that we need to use the functions
+	
+	
+	
+
 
 	interinData->sizeofArea = calculateSizeofFile(pathArea);  //size of file area
 	interinData->sizeofProvider = calculateSizeofFile(pathProvider);  //size of file providers
@@ -29,14 +34,15 @@ int main() {
 	interinData->numberofSectors = rand() % 5 + 8; //number of sectors the supermarket is going to have
 
 	Sector* superEDA = new Sector[interinData->numberofSectors]; //array of structures with all the sectors in the supermarket
-	Product* allProducts = new Product[50]; //array with the first 50 products
+	Product* allProducts = new Product[50]; //array with the first 50 products, Shoudnt this be the storage??
 
 	inicializeSectors(interinData, superEDA);  //function that inicializes all the sectors
-
 	interinData->areasChoosen = getAreasChoosen(interinData, superEDA);  //add the array with the areas choosen in the inicialize Sector function to the structure to be used to create products
-
 	inicializeProducts(interinData, allProducts); //function that inicializes all the products that are going to be used
 	
+	menuSupermarket(interinData, superEDA, allProducts);// Show the menu with the current display of the supermarket
+
+
 	return 0;
 
 }
