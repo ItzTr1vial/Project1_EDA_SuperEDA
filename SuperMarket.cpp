@@ -91,8 +91,8 @@ void menuSupermarket(const DataNeeded* interinData, Sector* superEda, Product* a
 			"Área:" << setw(3) << superEda[i].area << endl;
 		// atribution from storage so sector missing
 	}
-
-	while (true)
+	bool left = false;
+	while (!left)
 	{
 		initializeStorage(allProducts); // i think its working yeahhh
 		char option;
@@ -111,6 +111,7 @@ void menuSupermarket(const DataNeeded* interinData, Sector* superEda, Product* a
 
 		default:
 			cout << "Inseriu uma opção inválida";
+			left = true;
 			break;
 
 		}
