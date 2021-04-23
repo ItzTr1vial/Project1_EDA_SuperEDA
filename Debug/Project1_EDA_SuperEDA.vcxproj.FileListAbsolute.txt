@@ -1,3 +1,4 @@
 C:\Users\hugol\OneDrive\Ambiente de Trabalho\EDA\Projeto1_EDA_SuperEDA\Project1_EDA_SuperEDA\Debug\Project1_EDA_SuperEDA.exe
 C:\Users\hugol\OneDrive\Ambiente de Trabalho\EDA\Projeto1_EDA_SuperEDA\Project1_EDA_SuperEDA\Debug\Project1_EDA_SuperEDA.pdb
 D:\tonif\Universidade\EDA\Projeto\Project1_EDA_SuperEDA-Develop\Debug\Project1_EDA_SuperEDA.exe
+D:\tonif\Universidade\EDA\Projeto\Debug\Project1_EDA_SuperEDA.exe

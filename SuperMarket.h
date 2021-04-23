@@ -4,13 +4,15 @@
 
 
 
-
 void inicializeSectors(const DataNeeded* interinData, Sector* superEDA);  //function that initializes all the sectors
 
 string* getAreasChoosen(const DataNeeded* interinData, const Sector* superEDA); //function to create an array with the areas used in the structure
 
-void inicializeProducts(const DataNeeded* interinData, Product* allProducts); //function that initializes all the products
+void display(const DataNeeded* interinData, Sector* SuperEDA, Storage* supermarketStorage);
 
-void menuSupermarket(const DataNeeded* interinData,Sector* superEda, Product* allProducts);// Menu
+Product* inicializeProducts(const DataNeeded* interinData); //function that initializes all the products
 
-void initializeStorage(Product* allProducts);
+void assignProductsToSectors(Sector* superEda, Storage* supermarketStorage, const DataNeeded* interinData);
+
+void menuSupermarket(const DataNeeded* interinData,Sector* superEda, Storage* supermarketStorage);// Menu
+
