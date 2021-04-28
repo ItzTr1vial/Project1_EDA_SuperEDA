@@ -1,0 +1,151 @@
+50Center store
+Pires, Santos and Pinto
+salmon
+32 0 32Home Goods
+Brito e Associados
+cereal
+12 0 12DVD rentals
+Rocha - Pires
+sausage
+48 0 48Nonfood & Pharmacy 
+Fernandes, Leal and Henriques
+lemons/limes
+10 0 10Deli
+Brito e Associados
+sandwich/snack bags
+32 1 64Nonfood & Pharmacy 
+Vieira - Fernandes
+roast beef
+80 0 80Home Goods
+Vieira - Fernandes
+sour cream
+58 0 58Deli
+Vieira - Fernandes
+grapes
+22 1 44Deli
+Tavares, Vieira and Cruz
+shrimp
+30 1 60Home Goods
+Gomes, Fonseca and Reis
+cucumbers
+14 0 14Deli
+Torres, Nunes and Henriques
+watermelon
+22 1 44Nonfood & Pharmacy 
+Monteiro LTDA
+soy sauce
+60 0 60Nonfood & Pharmacy 
+Machado S.A.
+pineapple
+50 0 50Home Goods
+Barros - Guerreiro
+thyme
+48 0 48Home Goods
+Barros - Guerreiro
+peaches
+72 0 72DVD rentals
+Vieira - Fernandes
+salmon
+40 0 40Deli
+Barros - Guerreiro
+Flour tortillas
+30 1 60DVD rentals
+Cunha - Loureiro
+soy milk
+38 0 38Nonfood & Pharmacy 
+Vieira - Fernandes
+paper towels
+54 0 54Deli
+Pires, Santos and Pinto
+milk
+32 1 64Deli
+Barros - Guerreiro
+sweet potatoes
+13 1 26Home Goods
+Costa, Andrade and Mota
+tomato sauce
+12 0 12Deli
+Barros - Guerreiro
+rotini
+3 1 6DVD rentals
+Baptista LTDA
+English muffins
+12 0 12Center store
+Monteiro LTDA
+peaches
+40 0 40Deli
+Baptista LTDA
+cookies
+8 1 16Deli
+Fernandes, Leal and Henriques
+potatoes
+26 1 52Deli
+Vieira - Fernandes
+Worcestershire
+30 1 60DVD rentals
+Baptista LTDA
+green beans
+2 0 2Home Goods
+Pires, Santos and Pinto
+potato chips
+76 0 76Nonfood & Pharmacy 
+Baptista LTDA
+bacon
+14 0 14DVD rentals
+Tavares, Vieira and Cruz
+coleslaw
+62 0 62Nonfood & Pharmacy 
+Nobre - Baptista
+bacon
+54 0 54DVD rentals
+Tavares, Vieira and Cruz
+popcorn
+64 0 64DVD rentals
+Machado S.A.
+pork roast
+32 0 32Deli
+Gomes, Fonseca and Reis
+rotini
+6 1 12Deli
+Cunha - Loureiro
+baking soda
+33 1 66Home Goods
+Rocha - Pires
+strawberries
+24 0 24Deli
+Vieira - Fernandes
+blueberries
+36 1 72DVD rentals
+Cunha - Loureiro
+cookies
+68 0 68Nonfood & Pharmacy 
+Monteiro LTDA
+green peppers
+20 0 20DVD rentals
+Cunha - Loureiro
+applesauce
+8 0 8DVD rentals
+Cunha - Loureiro
+baking powder
+72 0 72Nonfood & Pharmacy 
+Baptista LTDA
+peaches
+58 0 58Home Goods
+Brito e Associados
+bacon
+2 0 2Deli
+Gomes, Fonseca and Reis
+baking soda
+7 1 14Deli
+Fernandes, Leal and Henriques
+milk
+8 1 16Deli
+Rocha - Pires
+eggs
+27 1 54DVD rentals
+Torres, Nunes and Henriques
+tomatoes
+48 0 48Nonfood & Pharmacy 
+Barros - Guerreiro
+sour cream
+2 0 2

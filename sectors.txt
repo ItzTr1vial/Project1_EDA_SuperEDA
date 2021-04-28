@@ -1,0 +1,67 @@
+A 7 0 1 0Toni Fernandes
+Home Goods
+cauliflower
+38B 8 5 2 2Toni Fernandes
+Deli
+Deli
+cantaloupe
+Brito e Associados
+19 1 38Deli
+oregano
+Machado S.A.
+20 1 40Deli
+fruit cocktail
+Brito e Associados
+24 1 48Deli
+baking powder
+Gomes, Fonseca and Reis
+5 1 10Deli
+fish
+Monteiro LTDA
+14 1 28pork chops
+14soy sauce
+18C 10 1 2 0Toni Fernandes
+Center store
+Center store
+tomatoes diced
+Pires, Santos and Pinto
+62 0 62Ajax
+42Flour tortillas
+62D 8 0 0 2Toni Fernandes
+Deli
+E 9 8 0 0Toni Fernandes
+DVD rentals
+DVD rentals
+oranges
+Torres, Nunes and Henriques
+66 0 66DVD rentals
+tomato sauce
+Fernandes, Leal and Henriques
+20 0 20DVD rentals
+green peppers
+Gomes, Fonseca and Reis
+66 0 66DVD rentals
+carrots
+Monteiro LTDA
+36 0 36DVD rentals
+apples
+Nobre - Baptista
+76 0 76DVD rentals
+Flour tortillas
+Machado S.A.
+36 0 36DVD rentals
+half and half
+Costa, Andrade and Mota
+36 0 36DVD rentals
+ground beef
+Monteiro LTDA
+4 0 4F 10 0 0 2Toni Fernandes
+Deli
+G 10 0 0 0Toni Fernandes
+DVD rentals
+H 9 1 0 0Toni Fernandes
+Nonfood & Pharmacy 
+Nonfood & Pharmacy 
+salmon
+Pires, Santos and Pinto
+78 0 78

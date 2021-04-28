@@ -5,6 +5,7 @@
 #include "SuperMarket.h"
 #include"Files.h"
 #include"Structs.h"
+#include"Management.h"
 
 
 
@@ -12,63 +13,82 @@ using namespace std;
 
 
 
-void inicializeSectors(const DataNeeded* interinData, Sector* superEDA) //using the const just for precaution to not change the original values 
+void inicializeSectors(DataNeeded* internalData, Sector* superEDA) //using the const just for precaution to not change the original values 
 {                                                                      
 	char characters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};    // array of characters that are going to give the sectors their letters
 	string nome;
+	char c = ' ';
 
 
-	for (int i = 0; i < interinData->numberofSectors; i++)
+	for (int i = 0; i < internalData->numberofSectors; i++) //loops through all the sectors
 	{
-		superEDA[i].sectorIdentifier = characters[i];  //giving the sectores their letters
-		superEDA[i].maxNumberOfProducts = rand() % 6 + 5;  //giving a max numbers of products between 5 and 10 to each
+		superEDA[i].sectorIdentifier = characters[i];  
+		superEDA[i].maxNumberOfProducts = rand() % 6 + 5;  
 		superEDA[i].productsInTheSector = new Product[superEDA[i].maxNumberOfProducts];
 		superEDA[i].quantityOfProducts = 0;
 		superEDA[i].sectorRecord = new ProductSoldRecord[1];
 		superEDA[i].sectorRecord[0].name = " ";
 		superEDA[i].sectorRecord[0].price = 0;
 		superEDA[i].quantityOfProductsSold = 0;
+		superEDA[i].cycles = 0;
 
-		cout << "Digite o nome do responsável da secção " << superEDA[i].sectorIdentifier << ": ";
-		getline(cin, nome);
-		
-			if (nome == "\0") { // in case the inserted name equals an empty string.
-				cout << "Insira novamente um nome válido!" << endl;
-				getline(cin, nome);
+		bool sair = false;
+
+		do
+		{
+			cout << "Digite o nome do responsável da secção " << superEDA[i].sectorIdentifier << ": ";
+			getline(cin, nome);
+
+			if (nome != "\0") // in case the inserted name equals an empty string.
+			{ 
+				sair = true;
 			}
-		
-		superEDA[i].personInCharge = nome;  //asking the user for the name of the responsable for each section
+			else
+			{
+				cout << "Não pode deixar este espaço em branco! " << endl;
+				cout << " " << endl;
+			}
 
-		superEDA[i].area = interinData->areaArray[rand() % interinData->sizeofArea];  //going to the array area and choosing a random area for each sector
+		} while (!sair);
+		
+		
+			
+		
+		superEDA[i].personInCharge = nome;  //adds the name given to the sector
+
+		superEDA[i].area = internalData->areaArray[rand() % internalData->sizeofArea];  //going to the array area and choosing a random area for each sector
 		
 	}
-	system("CLS");
+
+	delete[] internalData->areaArray; //since we already choose which areas to use this array is no longer needed
+
+	system("cls");
 }
 
 
 
-string* getAreasChoosen(const DataNeeded* interinData, const Sector* superEDA)
+void getAreasChoosen(DataNeeded* internalData, const Sector* superEDA)
 {
-	string* areasChoosen = new string[interinData->numberofSectors];  //string that will contain the areas choosen
+	internalData->areasChoosenArray = new string[internalData->numberofSectors]; //allocates the memory needed
 
-	for (int i = 0; i < interinData->numberofSectors; i++)
+	for (int i = 0; i < internalData->numberofSectors; i++)
 	{
-		areasChoosen[i] = superEDA[i].area;
-	}
+		internalData->areasChoosenArray[i] = superEDA[i].area; //gets the areas being used in the sectors
+		internalData->sizeofAreasChoosen += 1;
 
-	return areasChoosen;
+	}
 }
 
 
 
-Product* inicializeProducts(const DataNeeded* interinData)
+Product* inicializeProducts(const DataNeeded* internalData)
 {
-	Product* allProducts = new Product[interinData->numberofProductsToCreate];
-	for (int i = 0; i < interinData->numberofProductsToCreate; i++)
+	Product* allProducts = new Product[internalData->numberofProductsToCreate];
+	for (int i = 0; i < internalData->numberofProductsToCreate; i++)
 	{
-		allProducts[i].name = interinData->nameArray[rand() % interinData->sizeofName];  //chooses a random name from the array and gives it to the product
-		allProducts[i].area = interinData->areasChoosen[rand() % interinData->numberofSectors];  //chooses a random area only from the areas that have already been selected for the sectors
-		allProducts[i].provider = interinData->providerArray[rand() % interinData->sizeofProvider];  //chooses a random provider from the array and gives it to the product
+		allProducts[i].name = internalData->nameArray[rand() % internalData->sizeofName];  //chooses a random name from the array and gives it to the product
+		allProducts[i].area = internalData->areasChoosenArray[rand() % internalData->numberofSectors];  //chooses a random area only from the areas that have already been selected for the sectors
+		allProducts[i].provider = internalData->providerArray[rand() % internalData->sizeofProvider];  //chooses a random provider from the array and gives it to the product
 
 		int price = rand() % 80 + 1;  //gives a random number between 1 and 80
 		
@@ -76,6 +96,7 @@ Product* inicializeProducts(const DataNeeded* interinData)
 			price += 1;
 
 		allProducts[i].price = price; //gives that price for that product
+		allProducts[i].originalPrice = price; //holds the original price given in case of modification
 		
 	}
 	
@@ -84,12 +105,12 @@ Product* inicializeProducts(const DataNeeded* interinData)
 
 
 
-void display(const DataNeeded* interinData, Sector* SuperEDA, Storage* supermarketStorage) //function that displays what is needed
+void display(const DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage) //function that displays what is needed
 {
 	
 	cout << setfill(' ') << endl; //uses spaces to fill 
 
-	for (int i = 0; i < interinData->numberofSectors; i++) //displays the sectors of the supermarket
+	for (int i = 0; i < internalData->numberofSectors; i++) //displays the sectors of the supermarket
 	{
 		cout << left << setw(8) << "Sector: " << left << setw(4) << SuperEDA[i].sectorIdentifier << " | " 
 			 << left << setw(13) << "Responsavel: " << left << setw(22) << SuperEDA[i].personInCharge << " | " 
@@ -106,7 +127,10 @@ void display(const DataNeeded* interinData, Sector* SuperEDA, Storage* supermark
 		cout << "-------------------------------------------------------------------------------------------------------------------------" <<  endl;
 	}
 
+	cout << " " << endl;
+	cout << " " << endl;
 	cout << "Armazem: " << endl;
+	cout << " " << endl;
 
 	for (int i = 0; i < supermarketStorage->numProducts; i++) //displays the products in storage
 	{
@@ -114,6 +138,9 @@ void display(const DataNeeded* interinData, Sector* SuperEDA, Storage* supermark
 			 << left << setw(6) << "Area: " << left << setw(20) << supermarketStorage->inStorage[i].area << " | "
 			 << left << setw(7) << "Preço: " << left << setw(4) <<supermarketStorage->inStorage[i].price <<  endl;
 	}
+
+	cout << " " << endl;
+	cout << " " << endl;
 }
 
 
@@ -122,9 +149,9 @@ void addProductsToRecord(Product productsold, Sector* superEDA, int x) //functio
 {
 	ProductSoldRecord* internRecord = new ProductSoldRecord[superEDA[x].quantityOfProductsSold + 1]; //internal array
 	
-	for (int i = 0; i < superEDA[x].quantityOfProductsSold; i++) //loop to pass the products already stored in the original array to this onw
+	for (int j = 0; j < superEDA[x].quantityOfProductsSold; j++) //loop to pass the products already stored in the original array to this onw
 	{
-		internRecord[i] = superEDA[x].sectorRecord[i];
+		internRecord[j] = superEDA[x].sectorRecord[j];
 	}
 
 	internRecord[superEDA[x].quantityOfProductsSold].name = productsold.name; //adds that products name to the internal array
@@ -140,46 +167,48 @@ void addProductsToRecord(Product productsold, Sector* superEDA, int x) //functio
 
 
 
-Product* removeProductFromSector(Sector* superEDA, int x)
+void verifyProductSell(Sector* superEDA, const DataNeeded* internalData) //function that will verify all the products sold
 {
-	int cont1 = 0, cont2 = superEDA[x].quantityOfProductsSold; //conts needed 
-	Product* internProduct = new Product[superEDA[x].maxNumberOfProducts]; //creates a temporary array
-
-	for (int i = 0; i < superEDA[x].quantityOfProducts; i++) //loops through all the products
+	for (int i = 0; i < internalData->numberofSectors; i++) //loop to see all the sector
 	{
-		if (rand() % 3 != 0) //has a 75% chance of keeping the product, its the same as 25% of being sold
-		{
-			internProduct[cont1] = superEDA[x].productsInTheSector[i]; // if the product is kept it is put in the internal array
-			cont1 += 1; 
-		}
-		else
-		{
-			addProductsToRecord(superEDA[x].productsInTheSector[i], superEDA, x); //if the product is not kept it is added to the record of products sold
-		}
-	}
-	
-	superEDA[x].quantityOfProducts = cont1; //updates the number of products in the sector
-	return internProduct; //returns the updates array with all the products
+		int cont1 = 0; //conts needed 
+		Product* internProduct = new Product[superEDA[i].maxNumberOfProducts]; //creates a temporary array
 
+		for (int j = 0; j < superEDA[i].quantityOfProducts; j++) //loop that goes through all products
+		{
+			if (rand() % 3 == 0) //product has a 25%chance of being sold
+			{
+				addProductsToRecord(superEDA[i].productsInTheSector[j], superEDA, i); 
+			}
+			else
+			{
+				internProduct[cont1] = superEDA[i].productsInTheSector[j];
+				cont1 += 1;
+			}
+			
+		}
+
+		delete[] superEDA[i].productsInTheSector;
+		superEDA[i].quantityOfProducts = cont1; //updates the number of products in the sector
+
+		superEDA[i].productsInTheSector = new Product[superEDA[i].maxNumberOfProducts];
+
+		for (int j = 0; j < superEDA[i].quantityOfProducts; j++) //updates the products in the sector
+		{
+			superEDA[i].productsInTheSector[j] = internProduct[j];
+		}
+		
+		delete[] internProduct;
+	}
 }
 
 
 
-void verifyProductSell(Sector* superEDA, const DataNeeded* interinData) //function that will verify all the products sold
-{
-	for (int i = 0; i < interinData->numberofSectors; i++) //loop to see all the sector
-	{
-		superEDA[i].productsInTheSector = removeProductFromSector(superEDA, i); //calls the function that will check all the products in this sector
-	}
-}
-
-
-
-void createNewProducsts(Storage* supermarketStorage, const DataNeeded* interinData) //function to create new products
+void createNewProducsts(Storage* supermarketStorage, const DataNeeded* internalData) //function to create new products
 {
 
-	Product* internManagement = new Product[interinData->numberofProductsToCreate + supermarketStorage->numProducts]; //internal array that will receive all the products in storage
-	Product* internManagement1 = new Product[interinData->numberofProductsToCreate]; //internal array that will receive all the new Products
+	Product* internManagement = new Product[internalData->numberofProductsToCreate + supermarketStorage->numProducts]; //internal array that will receive all the products in storage
+	Product* internManagement1 = new Product[internalData->numberofProductsToCreate]; //internal array that will receive all the new Products
 	int cont = 0, cont1 = supermarketStorage->numProducts; //conts needed
 
 
@@ -188,13 +217,13 @@ void createNewProducsts(Storage* supermarketStorage, const DataNeeded* interinDa
 		internManagement[i] = supermarketStorage->inStorage[i];
 	}
 	
-	internManagement1 = inicializeProducts(interinData); //to create the 10 new Products
+	internManagement1 = inicializeProducts(internalData); //to create the 10 new Products
 
 	delete[] supermarketStorage->inStorage; //dealocates the memory in the storage
-	supermarketStorage->inStorage = new Product[supermarketStorage->numProducts + interinData->numberofProductsToCreate]; //allocates the storage necessary 
+	supermarketStorage->inStorage = new Product[supermarketStorage->numProducts + internalData->numberofProductsToCreate]; //allocates the storage necessary 
 	supermarketStorage->inStorage = internManagement; //receives the elements from the first array
 
-	for (int i = supermarketStorage->numProducts; i < cont1 + interinData->numberofProductsToCreate; i++)
+	for (int i = supermarketStorage->numProducts; i < cont1 + internalData->numberofProductsToCreate; i++)
 	{
 		supermarketStorage->inStorage[supermarketStorage->numProducts++] = internManagement1[cont++]; //receives the elements from the second array
 	}
@@ -203,7 +232,7 @@ void createNewProducsts(Storage* supermarketStorage, const DataNeeded* interinDa
 
 
 
-void assignProductsToSectors(Sector* superEDA, Storage* supermarketStorage, const DataNeeded* interinData)
+void assignProductsToSectors(Sector* superEDA, Storage* supermarketStorage, const DataNeeded* internalData)
 {
 	int cont1 = 0, cont2 = 0, cont3 = 0;  //conts used in this function
 	bool sair = false; //variable for exiting
@@ -211,7 +240,7 @@ void assignProductsToSectors(Sector* superEDA, Storage* supermarketStorage, cons
 
 	do
 	{
-		for (int i = 0; i < interinData->numberofSectors; i++) //used for checking in all the sectors
+		for (int i = 0; i < internalData->numberofSectors; i++) //used for checking in all the sectors
 		{
 			if (superEDA[i].area == supermarketStorage->inStorage[cont2].area) //checks if the product area is equal to the sector area
 			{
@@ -225,7 +254,7 @@ void assignProductsToSectors(Sector* superEDA, Storage* supermarketStorage, cons
 				}
 			}
 
-			if (i == interinData->numberofSectors-1)  //if it has checked all the sectors and didn´t find one available passes to the next product
+			if (i == internalData->numberofSectors-1)  //if it has checked all the sectors and didn´t find one available passes to the next product
 			{
 				internalproduct[cont3] = supermarketStorage->inStorage[cont2]; //passes that product to an internal array
 				cont2 += 1;
@@ -256,34 +285,77 @@ void assignProductsToSectors(Sector* superEDA, Storage* supermarketStorage, cons
 
 }
 
+
+
+void verifyDiscount(Sector* superEDA, Storage* supermarketStorage, const DataNeeded* internalData) //verifies every cycle if a given campain has ended
+{
+	for (int i = 0; i < internalData->numberofSectors; i++) //loops through all the sectors
+	{
+		if (superEDA[i].cycles > 1) //if the cycle is bigger that one it just decreses its value by one
+		{
+			superEDA[i].cycles--;
+		}
+		else if (superEDA[i].cycles == 1) //if the cycle is equal to one it ends the campain
+		{
+			for (int j = 0; j < superEDA[i].quantityOfProducts; j++) //loops through the products in the sector
+			{
+				superEDA[i].productsInTheSector[j].discountState = false; 
+				superEDA[i].productsInTheSector[j].price = superEDA[i].productsInTheSector[j].originalPrice; //restores the price
+			}
+
+			for (int j = 0; j < supermarketStorage->numProducts; j++) //loops trough all the products in storage
+			{
+				if (supermarketStorage->inStorage[j].discountState == true) //checks if a given products in in a campaign
+				{
+					supermarketStorage->inStorage[j].discountState = false;
+					supermarketStorage->inStorage[j].price = supermarketStorage->inStorage[j].originalPrice; //restores the price to the original
+				}
+				
+			}
+
+			superEDA[i].cycles--; //decreses the cycle by one
+		}
+	}
+}
+
  
 
-void menuSupermarket(const DataNeeded* interinData, Sector* superEDA, Storage* supermarketStorage) { // it will need debug on the switch case
+void menuSupermarket(DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage, Filepaths* supermarketFilepaths)  // it will need debug on the switch case
+{
+	
+	bool sair = false;
 
-	while (true)
+	do
 	{
-		display(interinData, superEDA, supermarketStorage); //function that displays the things
+		display(internalData, superEDA, supermarketStorage); //function that displays the status of the supermarket
 
 		char option;
 		cout << "Insira a seua opção:" << endl;
-		cout << "(s)eguinte" << setfill('*') << setw(15) << "(g)estão" << endl;
-		cout << "Selecione a sua opção" << endl;
+		cout << " " << endl;
+		cout << "Pressione (s) para seguinte, (g) para gestão ou (0) para terminar o programa: ";
 		cin >> option;
+
 		switch (option)
 		{
 		case 's':
-			verifyProductSell(superEDA, interinData);
-			createNewProducsts(supermarketStorage, interinData);
-			assignProductsToSectors(superEDA, supermarketStorage, interinData);
+			verifyProductSell(superEDA, internalData);
+			createNewProducsts(supermarketStorage, internalData);
+			assignProductsToSectors(superEDA, supermarketStorage, internalData);
+			verifyDiscount(superEDA, supermarketStorage, internalData);
 			break;
 		case 'g':
-			//management menu
+			managementMenu(internalData, superEDA, supermarketStorage, supermarketFilepaths);
 			break;
-
+		case'0':
+			sair = true;
+			cout << "Obrigado por usar o nosso programa! " << endl;
+			break;
 		default:
-			cout << "Inseriu uma opção inválida";
+			cout << "Inseriu uma opção inválida!" << endl;
 			break;
 
 		}
-	}
+	} while (!sair);
+		
+	
 }
