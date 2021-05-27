@@ -1,67 +1,50 @@
-A 7 0 1 0Toni Fernandes
-Home Goods
-cauliflower
-38B 8 5 2 2Toni Fernandes
-Deli
-Deli
-cantaloupe
-Brito e Associados
-19 1 38Deli
-oregano
+A 6 2 0 0s
+Bakery
+Bakery
+Worcestershire
 Machado S.A.
-20 1 40Deli
-fruit cocktail
-Brito e Associados
-24 1 48Deli
-baking powder
-Gomes, Fonseca and Reis
-5 1 10Deli
-fish
-Monteiro LTDA
-14 1 28pork chops
-14soy sauce
-18C 10 1 2 0Toni Fernandes
-Center store
-Center store
-tomatoes diced
+22 0 22Bakery
+nuts
+Cunha - Loureiro
+76 0 76B 5 1 0 0s
+DVD rentals
+DVD rentals
+Wheat bread
+Machado S.A.
+32 0 32C 5 2 0 0s
+Personal care
+Personal care
+butter
 Pires, Santos and Pinto
-62 0 62Ajax
-42Flour tortillas
-62D 8 0 0 2Toni Fernandes
-Deli
-E 9 8 0 0Toni Fernandes
-DVD rentals
-DVD rentals
-oranges
-Torres, Nunes and Henriques
-66 0 66DVD rentals
+2 0 2Personal care
 tomato sauce
-Fernandes, Leal and Henriques
-20 0 20DVD rentals
-green peppers
-Gomes, Fonseca and Reis
-66 0 66DVD rentals
-carrots
-Monteiro LTDA
-36 0 36DVD rentals
-apples
-Nobre - Baptista
-76 0 76DVD rentals
-Flour tortillas
-Machado S.A.
-36 0 36DVD rentals
-half and half
-Costa, Andrade and Mota
-36 0 36DVD rentals
-ground beef
-Monteiro LTDA
-4 0 4F 10 0 0 2Toni Fernandes
-Deli
-G 10 0 0 0Toni Fernandes
+Cunha - Loureiro
+24 0 24D 9 0 0 0s
 DVD rentals
-H 9 1 0 0Toni Fernandes
+E 8 1 0 0s
+Beverages
+Beverages
+potatoes
+Monteiro LTDA
+58 0 58F 9 1 0 0s
+Meat
+Meat
+blueberries
+Torres, Nunes and Henriques
+50 0 50G 6 0 0 0s
+Books and Magazines
+H 9 0 0 0s
+Bakery
+I 10 3 0 0s
 Nonfood & Pharmacy 
 Nonfood & Pharmacy 
-salmon
-Pires, Santos and Pinto
-78 0 78
+trash bags
+Monteiro LTDA
+24 0 24Nonfood & Pharmacy 
+ham
+Fernandes, Leal and Henriques
+18 0 18Nonfood & Pharmacy 
+sandwich/snack bags
+Brito e Associados
+56 0 56J 6 0 0 0s
+Nonfood & Pharmacy 

@@ -21,12 +21,12 @@ int main() {
 
 	
 	//filepaths
-	supermarketFilepaths->pathAreas = "D:\\tonif\\Universidade\\EDA\\Projeto\\areas.txt";
-	supermarketFilepaths->pathProviders = "D:\\tonif\\Universidade\\EDA\\Projeto\\fornecedores.txt";
-	supermarketFilepaths->pathNames = "D:\\tonif\\Universidade\\EDA\\Projeto\\nome.txt";
-	supermarketFilepaths->pathSectors = "D:\\tonif\\Universidade\\EDA\\Projeto\\sectors.txt";
-	supermarketFilepaths->pathStorage = "D:\\tonif\\Universidade\\EDA\\Projeto\\storage.txt";
-	supermarketFilepaths->pathDataNeeded = "D:\\tonif\\Universidade\\EDA\\Projeto\\dataNeeded.txt";
+	supermarketFilepaths->pathAreas = "areas.txt";
+	supermarketFilepaths->pathProviders = "fornecedores.txt";
+	supermarketFilepaths->pathNames = "nome.txt";
+	supermarketFilepaths->pathSectors = "sectors.txt";
+	supermarketFilepaths->pathStorage = "storage.txt";
+	supermarketFilepaths->pathDataNeeded = "dataNeeded.txt";
 
 
 	internalData->sizeofArea = calculateSizeofFile(supermarketFilepaths->pathAreas);  //size of file area
@@ -39,21 +39,19 @@ int main() {
 	internalData->numberofProductsToCreate = 50; //number of products to create initialy
 
 
+	nodeSector* superEDA;
+	nodeProduct* Storage;
 
-	Sector* superEDA = new Sector[internalData->numberofSectors]; //array of structures with all the sectors in the supermarket
-	Storage* supermarketStorage = new Storage; //structure that will contain the products in storage as well as the number of them
+	superEDA = inicializeSectors(internalData);  //function that inicializes all the sectors
+	updateProductNode(internalData, Storage, 50);
 
 
+	delete[] internalData->areaArray; //since we already choose which areas to use this array is no longer needed
 	
-
-	inicializeSectors(internalData, superEDA);  //function that inicializes all the sectors
-	getAreasChoosen(internalData, superEDA);  //add the array with the areas choosen in the inicialize Sector function to the structure to be used to create products
-	
+	/*
 	supermarketStorage->inStorage = inicializeProducts(internalData); //function that inicializes the first 50 products
 	supermarketStorage->numProducts = 50; //number of products created in the beggining
 	internalData->numberofProductsToCreate = 10; //numbers of products to create each time after that
-	
-
 
 	menuSupermarket(internalData, superEDA, supermarketStorage, supermarketFilepaths);// Show the menu with the current display of the supermarket
 
@@ -63,6 +61,8 @@ int main() {
 	delete supermarketFilepaths;
 
 	return 0;
+
+	*/
 
 }
 

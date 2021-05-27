@@ -12,99 +12,147 @@
 using namespace std;
 
 
+Sector createOneSector(DataNeeded* internalData)
+{
+	Sector oneSector;
+	
+	static int sectorsAdded = 0;
 
-void inicializeSectors(DataNeeded* internalData, Sector* superEDA) //using the const just for precaution to not change the original values 
-{                                                                      
-	char characters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};    // array of characters that are going to give the sectors their letters
+	char characters[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L' };    // array of characters that are going to give the sectors their letters
 	string nome;
 	char c = ' ';
+	int indexArea = rand() % internalData->sizeofArea;
 
 
-	for (int i = 0; i < internalData->numberofSectors; i++) //loops through all the sectors
+
+	oneSector.sectorIdentifier = characters[sectorsAdded++];
+	oneSector.maxNumberOfProducts = rand() % 6 + 5;
+	oneSector.quantityOfProducts = 0;
+	oneSector.cycles = 0;
+	oneSector.productsInTheSector = new nodeProduct;
+
+	bool sair = false;
+
+	do
 	{
-		superEDA[i].sectorIdentifier = characters[i];  
-		superEDA[i].maxNumberOfProducts = rand() % 6 + 5;  
-		superEDA[i].productsInTheSector = new Product[superEDA[i].maxNumberOfProducts];
-		superEDA[i].quantityOfProducts = 0;
-		superEDA[i].sectorRecord = new ProductSoldRecord[1];
-		superEDA[i].sectorRecord[0].name = " ";
-		superEDA[i].sectorRecord[0].price = 0;
-		superEDA[i].quantityOfProductsSold = 0;
-		superEDA[i].cycles = 0;
+		cout << "Digite o nome do responsável da secção " << oneSector.sectorIdentifier << ": ";
+		getline(cin, nome);
 
-		bool sair = false;
-
-		do
+		if (nome != "\0") // in case the inserted name equals an empty string.
 		{
-			cout << "Digite o nome do responsável da secção " << superEDA[i].sectorIdentifier << ": ";
-			getline(cin, nome);
+			sair = true;
+		}
+		else
+		{
+			cout << "Não pode deixar este espaço em branco! " << endl;
+			cout << " " << endl;
+		}
 
-			if (nome != "\0") // in case the inserted name equals an empty string.
-			{ 
-				sair = true;
-			}
-			else
-			{
-				cout << "Não pode deixar este espaço em branco! " << endl;
-				cout << " " << endl;
-			}
+	} while (!sair);
 
-		} while (!sair);
-		
-		
-			
-		
-		superEDA[i].personInCharge = nome;  //adds the name given to the sector
 
-		superEDA[i].area = internalData->areaArray[rand() % internalData->sizeofArea];  //going to the array area and choosing a random area for each sector
-		
-	}
+	oneSector.personInCharge = nome;  //adds the name given to the sector
 
-	delete[] internalData->areaArray; //since we already choose which areas to use this array is no longer needed
+	oneSector.area = internalData->areaArray[indexArea];  //going to the array area and choosing a random area for each sector
+	internalData->areasChoosenArray[sectorsAdded] = internalData->areaArray[indexArea];
 
 	system("cls");
+
+	return oneSector;
 }
 
 
 
-void getAreasChoosen(DataNeeded* internalData, const Sector* superEDA)
-{
-	internalData->areasChoosenArray = new string[internalData->numberofSectors]; //allocates the memory needed
+nodeSector* inicializeSectors(DataNeeded* internalData) 
+{   
+	nodeSector* n;
+	nodeSector* t;
+	nodeSector* h;
+
+	n = new nodeSector;
+	t = n;
+	h = n;
 
 	for (int i = 0; i < internalData->numberofSectors; i++)
 	{
-		internalData->areasChoosenArray[i] = superEDA[i].area; //gets the areas being used in the sectors
-		internalData->sizeofAreasChoosen += 1;
-
+		if (i == 0)
+		{
+			n->oneSector = createOneSector(internalData);
+			n->next = NULL;
+		}
+		else
+		{
+			n = new nodeSector;
+			n->oneSector = createOneSector(internalData);
+			n->next = NULL;
+			t->next = n;
+			t = t->next;
+		}
 	}
-}
 
-
-
-Product* inicializeProducts(const DataNeeded* internalData)
-{
-	Product* allProducts = new Product[internalData->numberofProductsToCreate];
-	for (int i = 0; i < internalData->numberofProductsToCreate; i++)
-	{
-		allProducts[i].name = internalData->nameArray[rand() % internalData->sizeofName];  //chooses a random name from the array and gives it to the product
-		allProducts[i].area = internalData->areasChoosenArray[rand() % internalData->numberofSectors];  //chooses a random area only from the areas that have already been selected for the sectors
-		allProducts[i].provider = internalData->providerArray[rand() % internalData->sizeofProvider];  //chooses a random provider from the array and gives it to the product
-
-		int price = rand() % 80 + 1;  //gives a random number between 1 and 80
-		
-		if (price % 2 != 0)  //if that number is and odd number it adds one so it becomes a multiple of 2
-			price += 1;
-
-		allProducts[i].price = price; //gives that price for that product
-		allProducts[i].originalPrice = price; //holds the original price given in case of modification
-		
-	}
+	return h;
 	
-	return allProducts;
 }
 
 
 
+Product inicializeProducts(const DataNeeded* internalData)
+{
+	Product oneProduct;
+	
+	
+	oneProduct.name = internalData->nameArray[rand() % internalData->sizeofName];  //chooses a random name from the array and gives it to the product
+	oneProduct.area = internalData->areasChoosenArray[rand() % internalData->numberofSectors];  //chooses a random area only from the areas that have already been selected for the sectors
+	oneProduct.provider = internalData->providerArray[rand() % internalData->sizeofProvider];  //chooses a random provider from the array and gives it to the product
+
+	int price = rand() % 80 + 1;  //gives a random number between 1 and 80
+		
+	if (price % 2 != 0)  //if that number is and odd number it adds one so it becomes a multiple of 2
+		price += 1;
+
+	oneProduct.price = price; //gives that price for that product
+	oneProduct.originalPrice = price; //holds the original price given in case of modification
+		
+	
+	
+	return oneProduct;
+}
+
+
+
+void updateProductNode(DataNeeded* internalData, nodeProduct* oneProductNode, int numberOfProductstoAdd)
+{
+	nodeProduct* n;
+
+	for (int i = 0; i < numberOfProductstoAdd; i++)
+	{
+		if (oneProductNode == NULL)
+		{
+			nodeProduct* n = new nodeProduct;
+			n->oneProduct = inicializeProducts(internalData);
+			n->next = oneProductNode;
+			oneProductNode = n;
+		}
+		else
+		{
+			nodeProduct* n = new nodeProduct;
+			n->oneProduct = inicializeProducts(internalData);
+			
+			nodeProduct* t = oneProductNode;
+
+			while (t->next == NULL)
+			{
+				t = t->next;
+			}
+
+			t->next = n;
+			n->next = NULL;
+		}
+	}
+}
+
+
+/*
 void display(const DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage) //function that displays what is needed
 {
 	
@@ -145,7 +193,7 @@ void display(const DataNeeded* internalData, Sector* SuperEDA, Storage* supermar
 
 
 
-void addProductsToRecord(Product productsold, Sector* superEDA, int x) //function that adds the products to the record of products sold of a given sector
+/*void addProductsToRecord(Product productsold, Sector* superEDA, int x) //function that adds the products to the record of products sold of a given sector
 {
 	ProductSoldRecord* internRecord = new ProductSoldRecord[superEDA[x].quantityOfProductsSold + 1]; //internal array
 	
@@ -167,6 +215,7 @@ void addProductsToRecord(Product productsold, Sector* superEDA, int x) //functio
 
 
 
+
 void verifyProductSell(Sector* superEDA, const DataNeeded* internalData) //function that will verify all the products sold
 {
 	for (int i = 0; i < internalData->numberofSectors; i++) //loop to see all the sector
@@ -178,7 +227,7 @@ void verifyProductSell(Sector* superEDA, const DataNeeded* internalData) //funct
 		{
 			if (rand() % 3 == 0) //product has a 25%chance of being sold
 			{
-				addProductsToRecord(superEDA[i].productsInTheSector[j], superEDA, i); 
+				//addProductsToRecord(superEDA[i].productsInTheSector[j], superEDA, i); 
 			}
 			else
 			{
@@ -204,7 +253,7 @@ void verifyProductSell(Sector* superEDA, const DataNeeded* internalData) //funct
 
 
 
-void createNewProducsts(Storage* supermarketStorage, const DataNeeded* internalData) //function to create new products
+void createNewProducts(Storage* supermarketStorage, const DataNeeded* internalData) //function to create new products
 {
 
 	Product* internManagement = new Product[internalData->numberofProductsToCreate + supermarketStorage->numProducts]; //internal array that will receive all the products in storage
@@ -359,3 +408,5 @@ void menuSupermarket(DataNeeded* internalData, Sector* superEDA, Storage* superm
 		
 	
 }
+
+*/

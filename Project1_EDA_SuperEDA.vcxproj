@@ -150,6 +150,14 @@
     <ClInclude Include="Structs.h" />
     <ClInclude Include="SuperMarket.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="areas.txt" />
+    <Text Include="dataNeeded.txt" />
+    <Text Include="fornecedores.txt" />
+    <Text Include="nome.txt" />
+    <Text Include="sectors.txt" />
+    <Text Include="storage.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

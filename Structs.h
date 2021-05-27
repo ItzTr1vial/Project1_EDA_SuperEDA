@@ -14,6 +14,7 @@ struct Filepaths  //structure to contain all the files
 };
 
 
+
 struct DataNeeded  //this structure is gonna be used to pass all the data at once to the functions otherwise we need to pass all the parameters separatly
 {
 	int numberofSectors = 0; //contains the number of sectors of the supermarket
@@ -22,18 +23,13 @@ struct DataNeeded  //this structure is gonna be used to pass all the data at onc
 	int sizeofName = 0; //contains the size of the array name
 	int sizeofAreasChoosen = 0; //contains the size of the array that has all the areas being used
 	int numberofProductsToCreate = 0; //contains the number of products to create in each cycle
+	int numProductsInStorage = 0;
 	string* areaArray = new string; //array that will keep all the areas from the file
 	string* providerArray = new string; //array that will keep all providers from the file
 	string* nameArray = new string; //array that will keep all the names from the file
 	string* areasChoosenArray = new string; //array that will contain only the areas that are being used
 };
 
-
-struct ProductSoldRecord  //structure to hold the Record of all products sold for each sector
-{                         
-	string name = "";
-	int price = 0;
-};
 
 
 struct Product
@@ -47,6 +43,7 @@ struct Product
 };
 
 
+
 struct Sector
 {
 	char sectorIdentifier = 0; //user input, we can make so it gets the letter from a char array like ['a', 'b', ...]!
@@ -54,18 +51,26 @@ struct Sector
 	string personInCharge = ""; // user input
 	int maxNumberOfProducts = 0; // Max Number of products in each sector is between 5 and 10
 	int quantityOfProducts = 0; //Number of products in the sector in that moment
-	Product* productsInTheSector = new Product; //array with all the products in the sector
-	ProductSoldRecord* sectorRecord = new ProductSoldRecord; //array containing the record of products sold in this sector
-	int quantityOfProductsSold = 0; //will keep track of the size of the array of Products sold
+	nodeProduct* productsInTheSector; //array with all the products in the sector
 	int cycles = 0; //used to keep track of discount cycles
 };
 
 
-struct Storage
+
+struct nodeSector
 {
-	Product* inStorage = new Product; //array that holds all the products in storage
-	int numProducts = 0;  //keeps track of how many products are in storage
+	Sector oneSector;
+	nodeSector* next = NULL;
 };
+
+
+
+struct nodeProduct 
+{
+	Product oneProduct;
+	nodeProduct* next = NULL;
+};
+
 
 
 

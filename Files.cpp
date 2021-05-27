@@ -60,7 +60,7 @@ string* getContentFromFiles(string path, int sizeofFile) {  //receives the path 
 }
 
 
-
+/*
 void saveDataNeededToFiles(const DataNeeded* internalData, const Filepaths* supermarketFilepaths)
 {
 	fstream file;
@@ -344,4 +344,6 @@ void loadStorageFromFiles(Storage* supermarketStorage, Filepaths* supermarketFil
 
 	file.close();
 }
+
+*/
 

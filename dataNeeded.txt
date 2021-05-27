@@ -1,10 +1,12 @@
-8 8 15 100 10Home Goods
-Deli
-Center store
-Deli
+10 10 15 100 10Bakery
 DVD rentals
-Deli
+Personal care
 DVD rentals
+Beverages
+Meat
+Books and Magazines
+Bakery
+Nonfood & Pharmacy 
 Nonfood & Pharmacy 
 Pires, Santos and Pinto
 Torres, Nunes and Henriques

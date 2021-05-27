@@ -14,7 +14,7 @@
 
 using namespace std;
 
-
+/*
 
 void removeProduct(const DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage)
 {
@@ -284,230 +284,14 @@ void loadSuperMarket(DataNeeded* internalData, Sector* SuperEDA, Storage* superm
 
 
 
-void alphabeticalOrder(Product* allProducts, int size)
-{
-	int cont1 = 0, cont2 = 0, cont3 = 0; //cont1 holds the index being used, cont2 is used to check every character and cont3 to hold how many products we have gone through
-	int* positions = new int[size]; //array that will hold all the indexes used
-	bool sair = false, stop = false;
-	Product oneProduct;
-
-	cout << " " << endl;
-	cout << "Ordem alfabetica: " << endl;
-	cout << " " << endl;
-
-	for (int i = 0; i < size; i++) //turn uppercase letters into lowercase
-	{
-		if (allProducts[i].name[0] < 91 && allProducts[i].name[0] > 64)
-		{
-			allProducts[i].name[0] += 32;
-		}
-	}
-
-	do	
-	{
-		cont1 = 0;
-		cont2 = 0;
-
-
-		for (int i = 0; i < size; i++) //goes through all the products
-		{
-			stop = false;
-
-			for (int j = 0; j < cont3; j++) //checks if the index has already been used
-			{
-				if (cont1 == positions[j])
-				{
-					cont1 += 1;
-				}
-
-				if (i == positions[j])
-				{
-					stop = true;
-					break;
-				}
-			}
-
-
-			oneProduct = allProducts[cont1];
-			
-
-
-			if (stop) //if the index has already been used, skip
-			{
-				continue;
-			}
-			else 
-			{
-
-				if (oneProduct.name[cont2] < allProducts[i].name[cont2]) //if the characters from the first come before
-				{
-					cont2 = 0;
-					continue;
-				}
-				else if (oneProduct.name == allProducts[i].name) //if they are equal
-				{
-					continue;
-				}
-				else if (oneProduct.name[cont2] == allProducts[i].name[cont2]) //if only the character is equal
-				{
-					cont2 += 1;
-					i -= 1;
-				}
-				else
-				{
-					cont1 = i;
-					oneProduct = allProducts[cont1]; //if the character from the second one comes before
-					cont2 = 0;
-				}
-			}
-
-		}
-
-		positions[cont3++] = cont1; //stores that index to be avoided next time
-
-		cout << left << setw(6) << "Nome: " << left << setw(22) << oneProduct.name << " | "
-			<< left << setw(6) << "Fornecedor: " << left << setw(30) << oneProduct.provider << " | "
-			<< left << setw(7) << "Preço: " << left << setw(4) << oneProduct.price << endl;
-
-
-		if (cont3 == size) //if we have checked everyproduct skip
-		{
-			sair = true;
-		}
-
-	} while (!sair);
-
-}
-
-
-
-void priceOrder(Product* allProducts, int size)
-{
-	int cont1 = 0, cont2 = 0, cont3 = 0;  //cont1 holds the index being used, cont2 is used to check every character and cont3 to hold how many products we have gone through
-	int* positions = new int[size]; //array that will hold all the indexes used
-	bool sair = false, stop = false;
-	Product oneProduct;
-
-	cout << " " << endl;
-	cout << "Ordenado por Preço: " << endl;
-	cout << " " << endl;
-
-	do
-	{
-		cont1 = 0;
-
-
-		for (int i = 0; i < size; i++) //goes through all the products
-		{
-			stop = false;
-
-			for (int j = 0; j < cont3; j++) //checks if the index has already been used
-			{
-				if (cont1 == positions[j])
-				{
-					cont1 += 1;
-				}
-
-				if (i == positions[j])
-				{
-					stop = true;
-					break;
-				}
-			}
-
-			oneProduct = allProducts[cont1];
-
-
-			if (stop) //if the index has already been used, skip
-			{
-				continue;
-			}
-			else
-			{
-				if (oneProduct.price > allProducts[i].price) //if the price from the first one is bigger 
-				{
-					cont1 = i;
-					oneProduct = allProducts[cont1];
-				}
-			}
-
-		}
-
-		positions[cont3++] = cont1; //holds all the indexes already used
-
-		cout << left << setw(6) << "Nome: " << left << setw(22) << oneProduct.name << " | "
-			<< left << setw(6) << "Fornecedor: " << left << setw(30) << oneProduct.provider << " | "
-			<< left << setw(7) << "Preço: " << left << setw(4) << oneProduct.price << endl;
-
-
-		if (cont3 == size) //if it checked all the products exit
-		{
-			sair = true;
-		}
-
-	} while (!sair);
-}
-
 
 
 void printProducts(DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage)
 {
-	int size = supermarketStorage->numProducts; //gets the number of products in storage
-	int cont = 0;
-	bool sair = false;
-	char opcao = ' ';
 
-	for (int i = 0; i < internalData->numberofSectors; i++) //checks how many products there are in all the sectors combined and adds them to the number we already had
-	{
-		size += superEDA[i].quantityOfProducts;
-	}
-
-	Product* allProducts = new Product[size]; //creates an array that will hold all the products
-
-	for (int i = 0; i < internalData->numberofSectors; i++) //puts all the products we had in the sectors in the array
-	{
-		for (int j = 0; j < superEDA[i].quantityOfProducts; j++)
-		{
-			allProducts[cont++] = superEDA[i].productsInTheSector[j];
-		}
-	}
-
-	for (int i = 0; i < supermarketStorage->numProducts; i++) //puts all the products we had in storage in the array
-	{
-		allProducts[cont++] = supermarketStorage->inStorage[i];
-	}
-
-
-	do //meny with the choices
-	{
-		cout << " " << endl;
-		cout << "Deseja ter os produtos ordenados por nome ou preço? " << endl;
-		cout << "(1). Por Nome" << endl;
-		cout << "(2). Por Preço" << endl;
-		cout << "(0). Sair" << endl;
-		cout << "Digite a sua opcao: ";
-		cin >> opcao;
-
-		switch (opcao)
-		{
-		case'1':
-			alphabeticalOrder(allProducts, size);
-			break;
-		case'2':
-			priceOrder(allProducts, size);
-			break;
-		case'0':
-			sair = true;
-			cout << "Escolheu a opção sair! " << endl;
-			break;
-		default:
-			cout << "Digite uma opção válida" << endl;
-			cout << " " << endl;
-			break;
-		}
-
-	} while (!sair);
 }
+
+
 
 
 
@@ -567,86 +351,6 @@ void showSalesRegister(DataNeeded* internalData, Sector* superEDA)
 
 
 
-void changeArea(DataNeeded* internalData, Sector* superEDA)
-{
-	char c = ' ';
-	bool sair = false;
-	string str;
-
-	do
-	{
-		cout << "Digite a letra do sector que deseja alterar a area (maiusculas): ";
-		cin >> c;
-		cout << " " << endl;
-
-		cin.ignore();
-
-		for (int i = 0; i < internalData->numberofSectors; i++) //checks if there is a sector with that identifier
-		{
-			if (c == superEDA[i].sectorIdentifier)
-			{
-				sair = true;
-			}
-		}
-
-		if (!sair)
-		{
-			cout << "Esse setor não existe, por favor digite um identificador de setor existente! " << endl;
-			cout << " " << endl;
-		}
-
-	} while (!sair);
-
-
-	sair = false;
-	
-
-	for (int i = 0; i < internalData->numberofSectors; i++) //loops through every sector
-	{
-		if (superEDA[i].sectorIdentifier == c) //checks for a sector with that identifier
-		{
-			cout << "Possiveis areas:  " << endl;
-
-			for (int j = 0; j < internalData->sizeofAreasChoosen; j++) //displays all the areas you can choose
-			{
-				cout << " -" << " " << internalData->areasChoosenArray[j] << endl;
-			}
-
-			 
-			do //asks for an area and checks to see if it is acceptable
-			{
-				cout << "Digite a sua opcao: ";
-				getline(cin, str);
-
-				for (int j = 0; j < internalData->sizeofAreasChoosen; j++)
-				{
-					if (str == internalData->areasChoosenArray[j])
-					{
-						sair = true;
-					}	
-				}
-
-				if (!sair)
-				{
-					cout << "Digite uma das opcoes acima! " << endl;
-					cout << " " << endl;
-				}
-
-			} while (!sair);
-			
-
-	
-			internalData->areasChoosenArray[i] = str;
-			superEDA[i].area = str;
-
-			delete[] superEDA[i].productsInTheSector; //clears the products of the sector
-			superEDA[i].productsInTheSector = new Product[superEDA[i].maxNumberOfProducts];
-			superEDA[i].quantityOfProducts = 0;
-		}
-	}
-}
-
-
 
 void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage, Filepaths* supermarketFilepaths)
 {
@@ -667,7 +371,6 @@ void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* superma
 		cout << "(6). Imprimir produtos" << endl;
 		cout << "(7). Criar nova area" << endl;
 		cout << "(8). Mostrar registo de vendas" << endl;
-		cout << "(9). Alterar area" << endl;
 		cout << "(0). Sair" << endl;
 		cout << "Digite a sua opcão: ";
 		cin >> opcoes;
@@ -700,9 +403,6 @@ void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* superma
 		case'8':
 			showSalesRegister(internalData, SuperEDA);
 			break;
-		case'9':
-			changeArea(internalData, SuperEDA);
-			break;
 		case'0':
 			cout << "Digitou a opcao sair!" << endl;
 			sair = true;
@@ -713,3 +413,5 @@ void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* superma
 		}
 	} while (!sair);
 }
+
+*/
