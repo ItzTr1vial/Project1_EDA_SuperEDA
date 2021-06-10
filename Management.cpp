@@ -286,9 +286,48 @@ void loadSuperMarket(DataNeeded* internalData, Sector* SuperEDA, Storage* superm
 
 
 
-void printProducts(DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage)
+void printProducts(DataNeeded* internalData, nodeSector* superEDA, nodeProduct* storage)
 {
+cout << setfill(' ') << endl; //uses spaces to fill
 
+	nodeSector* temp = superEDA;
+
+	while (temp->next != nullptr)
+	{
+		nodeProduct* tempProduct = temp->oneSector.productsInTheSector;
+
+		for (int i =0; i<temp->oneSector.quantityOfProducts; i++)
+		{
+			cout << left << setw(8) << "Produto: " << left << setw(20) << tempProduct->oneProduct.name << " | "
+				<< left << setw(7) << "Preço: " << left << setw(4) << tempProduct->oneProduct.price << endl;
+
+			tempProduct = tempProduct->next;
+		}
+
+		cout << "-----------------------------------------------------------------------------------------------------------" << endl;
+
+		temp = temp->next;
+	}
+
+
+	cout << " " << endl;
+	cout << " " << endl;
+	cout << "Armazem: " << endl;
+	cout << " " << endl;
+
+	nodeProduct* tempStorage = storage;
+
+	while (tempStorage->next != nullptr)
+	{
+		cout << left << setw(6) << "Nome: " << left << setw(22) << tempStorage->oneProduct.name << " | "
+			<< left << setw(6) << "Area: " << left << setw(20) << tempStorage->oneProduct.area << " | "
+			<< left << setw(7) << "Preço: " << left << setw(4) << tempStorage->oneProduct.price << endl;
+
+		tempStorage = tempStorage->next;
+	}
+
+	cout << " " << endl;
+	cout << " " << endl;
 }
 
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+
 using namespace std;
 
 
@@ -44,6 +45,14 @@ struct Product
 
 
 
+struct nodeProduct
+{
+	Product oneProduct; //will contain one product
+	nodeProduct* next = nullptr;
+};
+
+
+
 struct Sector
 {
 	char sectorIdentifier = 0; //user input, we can make so it gets the letter from a char array like ['a', 'b', ...]!
@@ -51,7 +60,7 @@ struct Sector
 	string personInCharge = ""; // user input
 	int maxNumberOfProducts = 0; // Max Number of products in each sector is between 5 and 10
 	int quantityOfProducts = 0; //Number of products in the sector in that moment
-	nodeProduct* productsInTheSector; //array with all the products in the sector
+	nodeProduct* productsInTheSector = nullptr; //array with all the products in the sector
 	int cycles = 0; //used to keep track of discount cycles
 };
 
@@ -59,17 +68,11 @@ struct Sector
 
 struct nodeSector
 {
-	Sector oneSector;
-	nodeSector* next = NULL;
+	Sector oneSector; //will contain one sector
+	nodeSector* next = nullptr;
 };
 
 
-
-struct nodeProduct 
-{
-	Product oneProduct;
-	nodeProduct* next = NULL;
-};
 
 
 

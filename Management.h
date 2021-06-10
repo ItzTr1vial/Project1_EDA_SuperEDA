@@ -12,7 +12,7 @@ void saveSuperMarket(const DataNeeded* internalData, const Sector* SuperEDA, con
 
 void loadSuperMarket(DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage, Filepaths* supermarketFilepaths); // topic 3.5
 
-//void printProducts(DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage); // topic 3.6
+void printProducts(DataNeeded* internalData, nodeSector* superEDA, nodeProduct* storage)
 
 void createNewArea(DataNeeded* internalData); // topic 3.7
 

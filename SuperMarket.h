@@ -3,19 +3,16 @@
 #include"Files.h"
 
 
-nodeSector* inicializeSectors(DataNeeded* internalData);  //function that initializes all the sectors
+nodeSector* inicializeSectors(DataNeeded* internalData, nodeSector* superEDA);  //function that initializes all the sectors
 
-Product inicializeProducts(const DataNeeded* internalData); //function that initializes all the products
+Product createOneProduct(const DataNeeded* internalData); //function that initializes all the products
 
-void updateProductNode(DataNeeded* internalData, nodeProduct* oneProductNode, int numberOfProductstoAdd);
+nodeProduct* updateStorage(DataNeeded* internalData, nodeProduct* oneProductNode);
 
-/*
+void display(const DataNeeded* internalData, nodeSector* superEDA, nodeProduct* storage);
 
-void display(const DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage);
+nodeProduct* assignProductsToSectors(const DataNeeded* internalData, nodeSector* superEDA, nodeProduct* storage);
 
-void assignProductsToSectors(Sector* superEda, Storage* supermarketStorage, const DataNeeded* internalData);
+void menuSupermarket(DataNeeded* internalData, nodeSector* superEDA, nodeProduct* Storage, Filepaths* supermarketFilepaths);// Menu
 
-void menuSupermarket(DataNeeded* internalData,Sector* superEda, Storage* supermarketStorage, Filepaths* supermarketFilepaths);// Menu
-
-*/
 
