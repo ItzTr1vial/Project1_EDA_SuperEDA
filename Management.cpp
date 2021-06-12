@@ -229,16 +229,16 @@ void discount(const DataNeeded* internalData, nodeSector** superEDA, nodeProduct
 
 
 
-void saveSuperMarket(DataNeeded* internalData, nodeSector* SuperEDA, nodeProduct* supermarketStorage, const Filepaths* supermarketFilepath) //calls the functions in files.cpp to save the data
+void saveSuperMarket(DataNeeded* internalData, nodeSector** SuperEDA, nodeProduct** supermarketStorage, const Filepaths* supermarketFilepath) //calls the functions in files.cpp to save the data
 {
 	saveDataNeededToFiles(internalData, supermarketFilepath);
-	saveSectorsToFiles(internalData, SuperEDA, supermarketFilepath);
-	saveStorageToFiles(internalData, supermarketStorage, supermarketFilepath);
+	saveSectorsToFiles(internalData, *SuperEDA, supermarketFilepath);
+	saveStorageToFiles(internalData, *supermarketStorage, supermarketFilepath);
 }
 
 
 
-void loadSuperMarket(DataNeeded* internalData, nodeSector* SuperEDA, nodeProduct* storage, Filepaths* supermarketFilepath)
+void loadSuperMarket(DataNeeded* internalData, nodeSector** SuperEDA, nodeProduct** storage, Filepaths* supermarketFilepath)
 {
 	char opcao = ' ';
 	bool sair = false;
@@ -288,9 +288,9 @@ void loadSuperMarket(DataNeeded* internalData, nodeSector* SuperEDA, nodeProduct
 
 
 	//calls the funtions from files.cpp to load the data 
-	loadDataNeededFromFiles(internalData, SuperEDA, supermarketFilepath);
-	SuperEDA = loadSectorsFromFiles(internalData, SuperEDA, supermarketFilepath);
-	storage = loadStorageFromFiles(internalData, storage, supermarketFilepath);
+	loadDataNeededFromFiles(internalData, *SuperEDA, supermarketFilepath);
+	*SuperEDA = loadSectorsFromFiles(internalData, *SuperEDA, supermarketFilepath);
+	*storage = loadStorageFromFiles(internalData, *storage, supermarketFilepath);
 }
 
 
@@ -359,19 +359,22 @@ void createNewArea(DataNeeded* internalData)
 
 
 
-void printBST(productSoldRegistBST* oneProductRegister)
+void printBST(productSoldRegistBST* oneProductRegister, int nivel)
 {
-	productSoldRegistBST* tempBST = oneProductRegister;
+	productSoldRegistBST* tempBST1 = oneProductRegister;
 
-	cout << "Produtos vendidos: " << endl;
-
-	while (tempBST != nullptr)
+	if (tempBST1 == nullptr)
 	{
-		cout << left << setw(6) << "Nome: " << left << setw(22) << tempBST->productsSold.nome << " | "
-			<< left << setw(7) << "Preço: " << left << setw(4) << tempBST->productsSold.price << endl;
-
-		tempBST = tempBST->right;
+		cout << endl;
+		return;
 	}
+
+	printBST(tempBST1->right, nivel++);
+
+	cout << left << setw(6) << "Nome: " << left << setw(22) << tempBST1->productsSold.nome << " | "
+		<< left << setw(7) << "Preço: " << left << setw(4) << tempBST1->productsSold.price;
+
+	printBST(tempBST1->left, nivel++);
 }
 
 
@@ -389,6 +392,8 @@ void showSalesRegister(DataNeeded* internalData, nodeSector** superEDA)
 
 	for (int i = 0; i < internalData->numberofSectors; i++) //goes through all the sectors
 	{
+		int nivel = 0;
+
 		if (tempSector->oneSector.personInCharge == str) //checks which sector has a person with that name and displays all the products sold
 		{
 			cout << " " << endl;
@@ -399,15 +404,9 @@ void showSalesRegister(DataNeeded* internalData, nodeSector** superEDA)
 
 			productSoldRegistBST* tempBST = tempSector->oneSector.productsSold;
 
-			if (tempBST != nullptr)
-			{
-				while (tempBST->left != nullptr)
-				{
-					tempBST = tempBST->left;
-				}
-
-				printBST(tempBST);
-			}
+			
+			printBST(tempBST, nivel);
+			
 
 
 			cout << "-----------------------------------------------------------------" << endl;
@@ -456,10 +455,10 @@ void managementMenu(DataNeeded* internalData, nodeSector** SuperEDA, nodeProduct
 			discount(internalData, SuperEDA, storage);
 			break;
 		case'4':
-			//saveSuperMarket(internalData, *SuperEDA, *storage, supermarketFilepaths);
+			saveSuperMarket(internalData, SuperEDA, storage, supermarketFilepaths);
 			break;
 		case'5':
-			//loadSuperMarket(internalData, *SuperEDA, *storage, supermarketFilepaths);
+			loadSuperMarket(internalData, SuperEDA, storage, supermarketFilepaths);
 			break;
 		case'6':
 			printProducts(internalData, SuperEDA, storage);
@@ -481,8 +480,3 @@ void managementMenu(DataNeeded* internalData, nodeSector** SuperEDA, nodeProduct
 	} while (!sair);
 }
 
-
-
-/*
-
-*/

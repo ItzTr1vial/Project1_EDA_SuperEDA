@@ -1,4 +1,14 @@
-9 0 15 100 10Pires, Santos and Pinto
+10 10 15 100 10Prepared Foods
+Nonfood & Pharmacy 
+Deli
+Prepared Foods
+DVD rentals
+Produce
+Beverages
+Deli
+Floral
+Home Goods
+Pires, Santos and Pinto
 Torres, Nunes and Henriques
 Vieira - Fernandes
 Nobre - Baptista

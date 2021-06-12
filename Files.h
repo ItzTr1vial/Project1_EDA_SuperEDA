@@ -17,6 +17,6 @@ void saveStorageToFiles(DataNeeded* internalData, nodeProduct* storage, const Fi
 
 void loadDataNeededFromFiles(DataNeeded* internalData, nodeSector* superEDA, Filepaths* supermartketFilepath); //load the structure DataNeeded from Files
 
-nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA, Filepaths* supermarketFilepaths);
+nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA, Filepaths* supermarketFilepaths); //load the sectors from files
 
 nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage, Filepaths* supermarketFilepaths); //load the structure Storage from Files

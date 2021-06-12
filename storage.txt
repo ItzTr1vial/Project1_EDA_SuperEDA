@@ -1,160 +1,151 @@
-53Personal care
+50Produce
 Monteiro LTDA
-tomato sauce
-12 0 12Dairy
-Nobre - Baptista
-fruit cocktail
-26 0 26Dairy
-Brito e Associados
 steak sauce
-44 0 44Dairy
-Baptista LTDA
-Worcestershire
-4 0 4Dairy
-Barros - Guerreiro
-cheese sticks
-46 0 46Personal care
-Fernandes, Leal and Henriques
-half and half
-6 0 6Books and Magazines
-Machado S.A.
-roast beef
-2 0 2Personal care
-Torres, Nunes and Henriques
-bananas
-22 0 22Books and Magazines
-Barros - Guerreiro
-spaghetti
-74 0 74Nonfood & Pharmacy 
-Tavares, Vieira and Cruz
-popcorn
-72 0 72Beverages
+38 0 38Floral
 Cunha - Loureiro
-thyme
-40 0 40Seafood
-Fernandes, Leal and Henriques
-Swiffer refill
-16 0 16Nonfood & Pharmacy 
-Machado S.A.
-dish washer deterg.
-6 0 6Dairy
-Rocha - Pires
-nuts
-26 0 26Books and Magazines
-Rocha - Pires
-honey
-26 0 26Dairy
-Pires, Santos and Pinto
-oil
-78 0 78Books and Magazines
-Machado S.A.
-baking soda
-18 0 18DVD rentals
-Rocha - Pires
-soy sauce
-30 0 30Dairy
-Vieira - Fernandes
-pork roast
-14 0 14Books and Magazines
-Tavares, Vieira and Cruz
-fruit cocktail
-76 0 76Home Goods
-Pires, Santos and Pinto
-sweet potatoes
-4 0 4DVD rentals
-Vieira - Fernandes
-nuts
-58 0 58Dairy
-Monteiro LTDA
-green beans
-64 0 64Books and Magazines
-Brito e Associados
-bleach
-80 0 80Nonfood & Pharmacy 
-Barros - Guerreiro
-laundry detergent
-66 0 66Home Goods
-Cunha - Loureiro
-honey
-72 0 72DVD rentals
-Cunha - Loureiro
-steak
-62 0 62Seafood
-Brito e Associados
-thyme
-36 0 36DVD rentals
-Costa, Andrade and Mota
-applesauce
-58 0 58Books and Magazines
-Costa, Andrade and Mota
-pork roast
-74 0 74Dairy
-Rocha - Pires
-eggs
-60 0 60DVD rentals
-Brito e Associados
-dish washer deterg.
-58 0 58Beverages
-Nobre - Baptista
-pizza
-68 0 68Dairy
-Machado S.A.
-pork roast
-18 0 18Nonfood & Pharmacy 
-Vieira - Fernandes
-carrots
-64 0 64Dairy
-Monteiro LTDA
-bagels
-2 0 2Home Goods
-Fernandes, Leal and Henriques
-shells
-66 0 66Dairy
-Baptista LTDA
-rice
-24 0 24Home Goods
-Tavares, Vieira and Cruz
-oil
-46 0 46Personal care
-Rocha - Pires
-salt
-2 0 2Seafood
-Pires, Santos and Pinto
-eggs
-26 0 26Books and Magazines
-Vieira - Fernandes
-bagels
-4 0 4Books and Magazines
-Baptista LTDA
-potato chips
-30 0 30Nonfood & Pharmacy 
-Brito e Associados
-whipping cream
-30 0 30Beverages
-Rocha - Pires
-napkins
-10 0 10Nonfood & Pharmacy 
-Pires, Santos and Pinto
-Worcestershire
-52 0 52Dairy
-Vieira - Fernandes
-lemons/limes
-62 0 62Seafood
-Monteiro LTDA
 sour cream
-30 0 30Dairy
+42 0 42Floral
+Barros - Guerreiro
+trash bags
+72 0 72Deli
+Baptista LTDA
+onions
+52 0 52Prepared Foods
 Rocha - Pires
-napkins
-26 0 26Seafood
+potatoes
+64 0 64Nonfood & Pharmacy 
+Nobre - Baptista
+mushrooms
+18 0 18Home Goods
+Brito e Associados
+paper towels
+48 0 48Prepared Foods
+Machado S.A.
+laundry detergent
+66 0 66Produce
+Tavares, Vieira and Cruz
+peaches
+10 0 10Deli
+Nobre - Baptista
+brown sugar
+60 0 60Home Goods
+Tavares, Vieira and Cruz
+carrots
+20 0 20Deli
 Gomes, Fonseca and Reis
-strawberries
-44 0 44Seafood
-Vieira - Fernandes
-Worcestershire
-50 0 50Beverages
+peaches
+56 0 56Deli
+Baptista LTDA
+fish
+60 0 60Nonfood & Pharmacy 
+Pires, Santos and Pinto
+oranges
+6 0 6Prepared Foods
+Pires, Santos and Pinto
+hotdogs
+18 0 18Deli
+Fernandes, Leal and Henriques
+bagels
+6 0 6Beverages
+Nobre - Baptista
+eggs
+56 0 56Prepared Foods
+Cunha - Loureiro
+brown sugar
+46 0 46Home Goods
+Barros - Guerreiro
+salt
+24 0 24Floral
+Monteiro LTDA
+thyme
+72 0 72Nonfood & Pharmacy 
+Gomes, Fonseca and Reis
+Wheat bread
+26 0 26Nonfood & Pharmacy 
+Gomes, Fonseca and Reis
+flour
+50 0 50Deli
+Rocha - Pires
+tomato sauce
+80 0 80Prepared Foods
+Costa, Andrade and Mota
+cereal
+60 0 60Deli
+Pires, Santos and Pinto
+bleach
+44 0 44Nonfood & Pharmacy 
+Costa, Andrade and Mota
+salmon
+12 0 12Beverages
+Cunha - Loureiro
+whipping cream
+42 0 42Prepared Foods
+Costa, Andrade and Mota
+thyme
+44 0 44DVD rentals
+Baptista LTDA
+English muffins
+16 0 16Beverages
+Tavares, Vieira and Cruz
+green peppers
+44 0 44DVD rentals
+Cunha - Loureiro
+sweet potatoes
+16 0 16Produce
+Monteiro LTDA
+oregano
+42 0 42Beverages
+Cunha - Loureiro
+oil
+62 0 62Deli
+Torres, Nunes and Henriques
+shredded cheddar
+44 0 44Produce
+Pires, Santos and Pinto
+sandwich/snack bags
+18 0 18Home Goods
+Barros - Guerreiro
+baked beans
+62 0 62Prepared Foods
+Gomes, Fonseca and Reis
+trash bags
+54 0 54DVD rentals
+Gomes, Fonseca and Reis
+butter
+74 0 74Home Goods
+Cunha - Loureiro
+honey
+12 0 12Prepared Foods
+Pires, Santos and Pinto
+bleach
+54 0 54Produce
 Costa, Andrade and Mota
 tuna
-34 0 34DVD rentals
+10 0 10Floral
+Nobre - Baptista
+bleach
+8 0 8Prepared Foods
 Vieira - Fernandes
-roast beef
-24 0 24
+watermelon
+48 0 48Prepared Foods
+Costa, Andrade and Mota
+dish washer deterg.
+64 0 64Nonfood & Pharmacy 
+Brito e Associados
+soy sauce
+62 0 62Beverages
+Pires, Santos and Pinto
+rotini
+30 0 30Produce
+Vieira - Fernandes
+potatoes
+66 0 66Nonfood & Pharmacy 
+Fernandes, Leal and Henriques
+Wheat bread
+52 0 52Deli
+Nobre - Baptista
+rotini
+36 0 36Floral
+Machado S.A.
+pineapple
+78 0 78

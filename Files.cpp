@@ -4,7 +4,6 @@
 #include "Files.h"
 
 
-
 int calculateSizeofFile(string path)
 {
 	int cont = 0;
@@ -25,7 +24,6 @@ int calculateSizeofFile(string path)
 	file.close();
 	return cont;
 }
-
 
 
 string* getContentFromFiles(string path, int sizeofFile) {  //receives the path to the file and the number of lines in that file
@@ -132,6 +130,7 @@ void saveSectorsToFiles(const DataNeeded* internalData, nodeSector* SuperEDA, co
 
 				tempProduct = tempProduct->next;
 			}
+
 
 			tempSector = tempSector->next;
 		}
@@ -248,16 +247,19 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 	string str = " ";
 
+	nodeSector* tempSector = superEDA;
+
+	while (superEDA != nullptr)
+	{
+		superEDA = tempSector->next;
+		delete tempSector;
+		tempSector = superEDA;
+	}
+
+
 	if (file.is_open())
 	{
-		nodeSector* tempSector = superEDA;
-
-		while (superEDA != nullptr)
-		{
-			superEDA = superEDA->next;
-			delete tempSector;
-			tempSector = superEDA;
-		}
+		
 
 		nodeSector* superEDA = nullptr;
 
@@ -584,26 +586,26 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 
 	string str;
 
+	nodeProduct* tempStorage = storage;
+
+	while (storage != nullptr)
+	{
+		storage = tempStorage->next;
+		delete tempStorage;
+		tempStorage = storage;
+	}
+
 	if (file.is_open())
 	{
-
-		nodeProduct* tempProduct = storage;
-
-		while (storage != nullptr)
-		{
-			storage = storage->next;
-			delete tempProduct;
-			tempProduct = storage;
-		}
+		nodeProduct* storage = nullptr;
 
 		file >> internalData->numProductsInStorage; //loads the number of products
 
-		nodeProduct* tempProduct1 = nullptr;
 
 
 		for (int i = 0; i < internalData->numProductsInStorage; i++) //loads all the products into storage
 		{
-			if (tempProduct1 == nullptr)
+			if (storage == nullptr)
 			{
 				nodeProduct* novoProduto = new nodeProduct;
 
@@ -620,7 +622,7 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 					>> novoProduto->oneProduct.originalPrice;
 
 				novoProduto->next = nullptr;
-				tempProduct1 = novoProduto;
+				storage = novoProduto;
 			}
 			else
 			{
@@ -638,16 +640,19 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 				file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
 					>> novoProduto->oneProduct.originalPrice;
 
-				while (tempProduct1->next != nullptr)
+				nodeProduct* tempProduct = storage;
+
+				while (tempProduct->next != nullptr)
 				{
-					tempProduct1 = tempProduct1->next;
+					tempProduct = tempProduct->next;
 				}
 
-				tempProduct1 = novoProduto;
+				tempProduct->next = novoProduto;
 			}
 
-			return tempProduct1;
 		}
+
+		return storage;
 	}
 	else
 	{
