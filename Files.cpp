@@ -117,7 +117,7 @@ void saveSectorsToFiles(const DataNeeded* internalData, nodeSector* SuperEDA, co
 			file << tempSector->oneSector.personInCharge << endl; //saves the name of the person in charge
 			file << tempSector->oneSector.area << endl; //saves the area of the sector
 
-			nodeProduct* tempProduct = tempSector->oneSector.productsInTheSector;
+			nodeProduct* tempProduct = tempSector->oneSector.productsInTheSector; //creates a temporary node to iterate the products
 
 			while (tempProduct != nullptr)
 			{
@@ -126,7 +126,7 @@ void saveSectorsToFiles(const DataNeeded* internalData, nodeSector* SuperEDA, co
 				file << tempProduct->oneProduct.provider << endl;
 				file << tempProduct->oneProduct.price << " "
 					<< tempProduct->oneProduct.discountState << " "
-					<< tempProduct->oneProduct.originalPrice;
+					<< tempProduct->oneProduct.originalPrice; //saves all the data of the products on the sector
 
 				tempProduct = tempProduct->next;
 			}
@@ -155,7 +155,7 @@ void saveStorageToFiles(DataNeeded* internalData, nodeProduct* storage, const Fi
 
 	if (file.is_open())
 	{
-		nodeProduct* tempProduct = storage;
+		nodeProduct* tempProduct = storage; //creates a node to iterate the products in storage
 
 		file << internalData->numProductsInStorage; //saves the number of products that exist in storage
 
@@ -166,7 +166,7 @@ void saveStorageToFiles(DataNeeded* internalData, nodeProduct* storage, const Fi
 			file << tempProduct->oneProduct.name << endl;
 			file << tempProduct->oneProduct.price << " "
 				<< tempProduct->oneProduct.discountState << " "
-				<< tempProduct->oneProduct.originalPrice;
+				<< tempProduct->oneProduct.originalPrice; //saves the data of the products in storage
 
 			tempProduct = tempProduct->next;
 
@@ -247,9 +247,9 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 	string str = " ";
 
-	nodeSector* tempSector = superEDA;
+	nodeSector* tempSector = superEDA; //creates an node to help to delete the sectors
 
-	while (superEDA != nullptr)
+	while (superEDA != nullptr) //loop to delete all sectors
 	{
 		superEDA = tempSector->next;
 		delete tempSector;
@@ -263,11 +263,11 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 		nodeSector* superEDA = nullptr;
 
-		for (int i = 0; i < internalData->numberofSectors; i++)
+		for (int i = 0; i < internalData->numberofSectors; i++) //loop to see every sector
 		{
-			if (superEDA == nullptr)
+			if (superEDA == nullptr) //for the first Sector node 
 			{
-				nodeSector* novo = new nodeSector;
+				nodeSector* novo = new nodeSector; //creates a node to hold the new data
 				
 				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
 					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
@@ -280,11 +280,11 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 				novo->oneSector.productsInTheSector = nullptr;
 
-				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++)
+				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++) //loop to see every product in the sector
 				{
-					if (novo->oneSector.productsInTheSector == nullptr)
+					if (novo->oneSector.productsInTheSector == nullptr) //for the first product
 					{
-						nodeProduct* novoProduto = new nodeProduct;
+						nodeProduct* novoProduto = new nodeProduct; //creates a node to hold the data
 
 						getline(file, str);
 						novoProduto->oneProduct.area = str;
@@ -300,12 +300,12 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 						novoProduto->next = nullptr;
 
-						novo->oneSector.productsInTheSector = novoProduto;
+						novo->oneSector.productsInTheSector = novoProduto; //puts the product in first
 
 					}
 					else
 					{
-						nodeProduct* novoProduto = new nodeProduct;
+						nodeProduct* novoProduto = new nodeProduct; //creates a node to hold the data
 
 						getline(file, str);
 						novoProduto->oneProduct.area = str;
@@ -319,9 +319,9 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
 							>> novoProduto->oneProduct.originalPrice;
 
-						nodeProduct* tempProduct = novo->oneSector.productsInTheSector;
+						nodeProduct* tempProduct = novo->oneSector.productsInTheSector; //creates a node to iterate the products until the last one
 
-						while (tempProduct->next != nullptr)
+						while (tempProduct->next != nullptr) //loop to get to the last product
 						{
 							tempProduct = tempProduct->next;
 						}
@@ -331,10 +331,10 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 				}
 
 				novo->next = nullptr;
-				superEDA = novo;
+				superEDA = novo; //adds the sector to the head
 
 			}
-			else
+			else //to add at the end
 			{
 				nodeSector* novo = new nodeSector;
 
@@ -349,7 +349,7 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 				novo->oneSector.productsInTheSector = nullptr;
 
-				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++)
+				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++) //loop to see all products, same as above
 				{
 					if (novo->oneSector.productsInTheSector == nullptr)
 					{
@@ -412,156 +412,6 @@ nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA,
 
 		return superEDA;
 
-		/*
-		for (int i = 0; i < internalData->numberofSectors; i++)
-		{
-			if (tempSector1 == nullptr) //for the first item on the linked list
-			{
-				nodeSector* novo = new nodeSector;
-				
-				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
-					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
-
-				getline(file, str);
-				novo->oneSector.personInCharge = str; //loads the name of the person in charge
-
-				getline(file, str);
-				novo->oneSector.area = str; //loads the area of the sector
-
-				novo->oneSector.productsInTheSector = nullptr;
-
-
-				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++) //loads the products into the sectores
-				{
-					if (novo->oneSector.productsInTheSector == nullptr)
-					{
-						nodeProduct* novoProduto = new nodeProduct;
-
-						getline(file, str);
-						novoProduto->oneProduct.area = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.name = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.provider = str;
-
-						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
-							>> novoProduto->oneProduct.originalPrice;
-
-						novoProduto->next = nullptr;
-						novo->oneSector.productsInTheSector = novoProduto;
-
-					}
-					else
-					{
-						nodeProduct* novoProduto = new nodeProduct;
-
-						getline(file, str);
-						novoProduto->oneProduct.area = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.name = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.provider = str;
-
-						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
-							>> novoProduto->oneProduct.originalPrice;
-
-
-						while (novo->oneSector.productsInTheSector->next != nullptr)
-						{
-							novo->oneSector.productsInTheSector = novo->oneSector.productsInTheSector->next;
-						}
-
-						novo->oneSector.productsInTheSector->next = novoProduto;
-					}
-
-				}
-				
-				novo->next = nullptr;
-				tempSector1 = novo;
-			}
-			else //for all the others
-			{
-				nodeSector* novo = new nodeSector; //creates a new node
-
-				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
-					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
-
-				getline(file, str);
-				novo->oneSector.personInCharge = str; //loads the name of the person in charge
-
-				getline(file, str);
-				novo->oneSector.area = str; //loads the area of the sector
-				
-				nodeSector* temp = tempSector1; //creates a temporary node that will receive the header address
-
-				while (temp->next != nullptr) //loops trough all the items on the linked list until it points to a null pointer
-				{
-					temp = temp->next;
-				}
-
-				novo->oneSector.productsInTheSector = nullptr;
-
-
-				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++) //loads the products into the sectores
-				{
-					if (novo->oneSector.productsInTheSector == nullptr)
-					{
-						nodeProduct* novoProduto = new nodeProduct;
-
-						getline(file, str);
-						novoProduto->oneProduct.area = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.name = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.provider = str;
-
-						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
-							>> novoProduto->oneProduct.originalPrice;
-
-						novoProduto->next = nullptr;
-						novo->oneSector.productsInTheSector = novoProduto;
-
-					}
-					else
-					{
-						nodeProduct* novoProduto = new nodeProduct;
-
-						getline(file, str);
-						novoProduto->oneProduct.area = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.name = str;
-
-						getline(file, str);
-						novoProduto->oneProduct.provider = str;
-
-						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
-							>> novoProduto->oneProduct.originalPrice;
-
-
-						while (novo->oneSector.productsInTheSector->next != nullptr)
-						{
-							novo->oneSector.productsInTheSector = novo->oneSector.productsInTheSector->next;
-						}
-
-						novo->oneSector.productsInTheSector->next = novoProduto;
-					}
-
-				}
-
-				temp->next = novo; //adds the product to the end of the linked list
-			}
-		}
-
-		return tempSector1;
-
-		*/
 
 	}
 	else
@@ -586,9 +436,9 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 
 	string str;
 
-	nodeProduct* tempStorage = storage;
+	nodeProduct* tempStorage = storage; //creates a node to help delete storage
 
-	while (storage != nullptr)
+	while (storage != nullptr) //loop to delete storage
 	{
 		storage = tempStorage->next;
 		delete tempStorage;
@@ -597,7 +447,7 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 
 	if (file.is_open())
 	{
-		nodeProduct* storage = nullptr;
+		nodeProduct* storage = nullptr; //creates the node that will be returned to the head
 
 		file >> internalData->numProductsInStorage; //loads the number of products
 
@@ -605,9 +455,9 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 
 		for (int i = 0; i < internalData->numProductsInStorage; i++) //loads all the products into storage
 		{
-			if (storage == nullptr)
+			if (storage == nullptr) //for the first product
 			{
-				nodeProduct* novoProduto = new nodeProduct;
+				nodeProduct* novoProduto = new nodeProduct; //creates a node to hold the data
 
 				getline(file, str);
 				novoProduto->oneProduct.area = str;
@@ -622,11 +472,11 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 					>> novoProduto->oneProduct.originalPrice;
 
 				novoProduto->next = nullptr;
-				storage = novoProduto;
+				storage = novoProduto; //adds the product to the head
 			}
-			else
+			else //add the product at the end
 			{
-				nodeProduct* novoProduto = new nodeProduct;
+				nodeProduct* novoProduto = new nodeProduct; 
 
 				getline(file, str);
 				novoProduto->oneProduct.area = str;
@@ -640,9 +490,9 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 				file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
 					>> novoProduto->oneProduct.originalPrice;
 
-				nodeProduct* tempProduct = storage;
+				nodeProduct* tempProduct = storage; //creates node to iterate all the products 
 
-				while (tempProduct->next != nullptr)
+				while (tempProduct->next != nullptr) //loop to get to the last product
 				{
 					tempProduct = tempProduct->next;
 				}
@@ -652,7 +502,7 @@ nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage
 
 		}
 
-		return storage;
+		return storage; //returns storage to the head
 	}
 	else
 	{

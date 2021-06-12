@@ -1,13 +1,12 @@
-10 10 15 100 10Prepared Foods
+8 9 15 100 10Dairy
+Seafood
+Center store
+Center store
+Seafood
 Nonfood & Pharmacy 
-Deli
-Prepared Foods
 DVD rentals
-Produce
-Beverages
-Deli
-Floral
-Home Goods
+Seafood
+verveja
 Pires, Santos and Pinto
 Torres, Nunes and Henriques
 Vieira - Fernandes

@@ -1,4 +1,2 @@
-﻿  Files.cpp
-D:\tonif\Universidade\EDA\Projeto\Files.cpp(576): warning C4715: 'loadSectorsFromFiles': nem todos os caminhos de controle retornam um valor
-D:\tonif\Universidade\EDA\Projeto\Files.cpp(663): warning C4715: 'loadStorageFromFiles': nem todos os caminhos de controle retornam um valor
-  Project1_EDA_SuperEDA.vcxproj -> D:\tonif\Universidade\EDA\Projeto\Debug\Project1_EDA_SuperEDA.exe
+﻿  Management.cpp
+  Project1_EDA_SuperEDA.vcxproj -> D:\tonif\Universidade\EDA\Projeto 1.2\Debug\Project1_EDA_SuperEDA.exe

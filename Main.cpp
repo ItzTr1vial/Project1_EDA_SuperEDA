@@ -48,23 +48,14 @@ int main() {
 	inicializeSectors(internalData, &superEDA);  //function that inicializes all the sectors
 	inicializeStorage(internalData, &Storage); //function of products 
 
+	delete[] internalData->areaArray; //since we already choose the areas tehis array is no longer needed
 
 
-	menuSupermarket(internalData, superEDA, Storage, supermarketFilepaths);
 
-
-	delete[] internalData->areaArray; //since we already choose which areas to use this array is no longer needed
-	
-	/*
-
-	delete[] superEDA;
-	delete supermarketStorage;
-	delete internalData;
-	delete supermarketFilepaths;
+	menuSupermarket(internalData, superEDA, Storage, supermarketFilepaths); //calls the menu
 
 	return 0;
 
-	*/
 
 }
 

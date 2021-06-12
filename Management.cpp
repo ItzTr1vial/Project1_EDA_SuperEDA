@@ -22,26 +22,26 @@ void removeProduct(DataNeeded* internalData, nodeSector** superEDA, nodeProduct*
 	int cont = 0; //cont to know how many products have been deleted
 	cin.ignore();
 
-	cout << "Digite o nome do produto a apagar: ";
+	cout << "Digite o nome do produto a apagar: "; //askes the user for info
 	getline(cin, str);
 
-	nodeSector* tempSector = *superEDA;
+	nodeSector* tempSector = *superEDA; //creates a node to iterate by all sectors
 
-	while (tempSector != nullptr)
+	while (tempSector != nullptr) //loop to see all sectors
 	{
-		int count = 0;
+		int count = 0; //count to keep track of the index on the product list
 		nodeProduct* tempProduct = tempSector->oneSector.productsInTheSector;
 
-		while (tempProduct != nullptr)
+		while (tempProduct != nullptr) //iterates by all products
 		{
-			if (tempProduct->oneProduct.name == str)
+			if (tempProduct->oneProduct.name == str) //if it has the same name removes the product
 			{
 				removeProductSector(tempSector, &tempSector->oneSector.productsInTheSector, count);
 				tempSector->oneSector.quantityOfProducts--;
 				tempProduct = tempSector->oneSector.productsInTheSector;
 				cont++;
 
-				for (int i = 0; i < count; i++)
+				for (int i = 0; i < count; i++) //to go to that index on the list
 				{
 					tempProduct = tempProduct->next;
 				}
@@ -59,7 +59,7 @@ void removeProduct(DataNeeded* internalData, nodeSector** superEDA, nodeProduct*
 
 
 
-	nodeProduct* tempStorage = *storage;
+	nodeProduct* tempStorage = *storage; //does the same as above but in storage
 	int count = 0;
 
 
@@ -121,12 +121,12 @@ void updatePrice(nodeProduct** storage)
 	} while (!sair);
 
 
-	nodeProduct* tempProduct = *storage;
+	nodeProduct* tempProduct = *storage; //node to iterate by all products
 
 
 	while (tempProduct != nullptr)
 	{
-		if (tempProduct->oneProduct.name == str)
+		if (tempProduct->oneProduct.name == str) //if it has the same name updates the price
 		{
 			tempProduct->oneProduct.price = price;
 			tempProduct->oneProduct.originalPrice = price;
@@ -150,11 +150,10 @@ void discount(const DataNeeded* internalData, nodeSector** superEDA, nodeProduct
 
 	cout << "Digite a duraçao da campanha: ";
 	cin >> cycle;
-
-	nodeSector* tempSector = *superEDA;
-
 	cin.ignore();
-	cin.clear();
+
+	nodeSector* tempSector = *superEDA; //node to iterate by all sectors
+
 
 	cout << "Digite a area em que quer começar a campanha de descontos: ";
 	getline(cin, str);
@@ -176,6 +175,7 @@ void discount(const DataNeeded* internalData, nodeSector** superEDA, nodeProduct
 		{
 			cout << "Digite um número no intervalo (0-100): " << endl;
 		}
+		cin.clear();
 	} while (!sair);
 
 

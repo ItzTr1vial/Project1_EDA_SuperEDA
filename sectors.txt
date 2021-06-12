@@ -1,75 +1,85 @@
-A 7 3 0s
-Prepared Foods
-Prepared Foods
-strawberries
-Gomes, Fonseca and Reis
-26 0 26Prepared Foods
-salad/lettuce
-Baptista LTDA
-60 0 60Prepared Foods
-ground beef
-Gomes, Fonseca and Reis
-28 0 28B 5 1 0s
-Nonfood & Pharmacy 
-Nonfood & Pharmacy 
-coconut
-Brito e Associados
-74 0 74C 8 4 0s
-Deli
-Deli
-salad/lettuce
-Vieira - Fernandes
-66 0 66Deli
-rice
-Baptista LTDA
-32 0 32Deli
-onions
-Nobre - Baptista
-56 0 56Deli
-salmon
+A 8 1 0s
+Dairy
+Dairy
+baked beans
 Fernandes, Leal and Henriques
-18 0 18D 7 0 0s
-Prepared Foods
-E 8 3 0s
-DVD rentals
-DVD rentals
-apples
-Cunha - Loureiro
-22 0 22DVD rentals
-salt
-Baptista LTDA
-4 0 4DVD rentals
+42 0 42B 7 7 0s
+Seafood
+Seafood
 bleach
 Torres, Nunes and Henriques
-58 0 58F 8 1 0s
-Produce
-Produce
-Flour tortillas
-Tavares, Vieira and Cruz
-10 0 10G 7 2 0s
-Beverages
-Beverages
-apples
-Fernandes, Leal and Henriques
-46 0 46Beverages
-tuna
-Vieira - Fernandes
-12 0 12H 10 0 0s
-Deli
-I 5 3 0s
-Floral
-Floral
-cookies
-Machado S.A.
-24 0 24Floral
-rice
-Gomes, Fonseca and Reis
-62 0 62Floral
-watermelon
-Gomes, Fonseca and Reis
-4 0 4J 8 1 0s
-Home Goods
-Home Goods
-soy milk
+28 0 28Seafood
+tomato paste
 Costa, Andrade and Mota
-32 0 32
+8 0 8Seafood
+ham
+Fernandes, Leal and Henriques
+80 0 80Seafood
+sausage
+Nobre - Baptista
+30 0 30Seafood
+salmon
+Baptista LTDA
+30 0 30Seafood
+coconut
+Machado S.A.
+8 0 8Seafood
+salmon
+Cunha - Loureiro
+52 0 52C 6 6 0s
+Center store
+Center store
+trash bags
+Machado S.A.
+10 0 10Center store
+cucumbers
+Cunha - Loureiro
+38 0 38Center store
+garlic
+Pires, Santos and Pinto
+80 0 80Center store
+ham
+Torres, Nunes and Henriques
+70 0 70Center store
+Flour tortillas
+Torres, Nunes and Henriques
+76 0 76Center store
+cauliflower
+Monteiro LTDA
+32 0 32D 5 3 0s
+Center store
+Center store
+Wheat bread
+Tavares, Vieira and Cruz
+30 0 30Center store
+cookies
+Barros - Guerreiro
+42 0 42Center store
+cauliflower
+Machado S.A.
+76 0 76E 8 1 0s
+Seafood
+Seafood
+crackers
+Barros - Guerreiro
+40 0 40F 10 1 0s
+Nonfood & Pharmacy 
+Nonfood & Pharmacy 
+butter
+Torres, Nunes and Henriques
+42 0 42G 9 4 0s
+DVD rentals
+DVD rentals
+bleach
+Baptista LTDA
+68 0 68DVD rentals
+shells
+Torres, Nunes and Henriques
+2 0 2DVD rentals
+bagels
+Torres, Nunes and Henriques
+62 0 62DVD rentals
+butter
+Brito e Associados
+16 0 16H 6 0 0s
+Seafood
