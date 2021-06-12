@@ -1,50 +1,169 @@
-A 6 2 0 0s
-Bakery
-Bakery
-Worcestershire
+A 7 7 0s
+Books and Magazines
+Books and Magazines
+tomatoes
+Costa, Andrade and Mota
+66 0 66Books and Magazines
+milk
+Monteiro LTDA
+60 0 60Books and Magazines
+Swiffer refill
+Pires, Santos and Pinto
+56 0 56Books and Magazines
+peaches
+Gomes, Fonseca and Reis
+76 0 76Books and Magazines
+roast beef
 Machado S.A.
-22 0 22Bakery
+2 0 2Books and Magazines
+roast beef
+Machado S.A.
+2 0 2Books and Magazines
+roast beef
+Machado S.A.
+2 0 2B 10 3 0s
+Seafood
+Seafood
+pork chops
+Brito e Associados
+80 0 80Seafood
+Flour tortillas
+Torres, Nunes and Henriques
+26 0 26Seafood
+rotini
+Nobre - Baptista
+68 0 68C 7 7 0s
+Dairy
+Dairy
+baking soda
+Machado S.A.
+22 0 22Dairy
+ground beef
+Cunha - Loureiro
+42 0 42Dairy
+peaches
+Baptista LTDA
+78 0 78Dairy
+onions
+Fernandes, Leal and Henriques
+2 0 2Dairy
+English muffins
+Costa, Andrade and Mota
+10 0 10Dairy
+crackers
+Cunha - Loureiro
+46 0 46Dairy
+whipping cream
+Baptista LTDA
+32 0 32D 10 6 0s
+Beverages
+Beverages
+shrimp
+Barros - Guerreiro
+28 0 28Beverages
 nuts
 Cunha - Loureiro
-76 0 76B 5 1 0 0s
-DVD rentals
-DVD rentals
-Wheat bread
-Machado S.A.
-32 0 32C 5 2 0 0s
-Personal care
-Personal care
-butter
-Pires, Santos and Pinto
-2 0 2Personal care
-tomato sauce
-Cunha - Loureiro
-24 0 24D 9 0 0 0s
-DVD rentals
-E 8 1 0 0s
-Beverages
-Beverages
-potatoes
-Monteiro LTDA
-58 0 58F 9 1 0 0s
-Meat
-Meat
-blueberries
+24 0 24Beverages
+half and half
 Torres, Nunes and Henriques
-50 0 50G 6 0 0 0s
-Books and Magazines
-H 9 0 0 0s
-Bakery
-I 10 3 0 0s
+16 0 16Beverages
+peaches
+Baptista LTDA
+4 0 4Beverages
+pizza
+Cunha - Loureiro
+40 0 40Beverages
+whipping cream
+Pires, Santos and Pinto
+66 0 66E 10 7 0ss
 Nonfood & Pharmacy 
 Nonfood & Pharmacy 
-trash bags
-Monteiro LTDA
-24 0 24Nonfood & Pharmacy 
-ham
-Fernandes, Leal and Henriques
-18 0 18Nonfood & Pharmacy 
-sandwich/snack bags
+crackers
+Nobre - Baptista
+48 0 48Nonfood & Pharmacy 
+popcorn
+Tavares, Vieira and Cruz
+72 0 72Nonfood & Pharmacy 
+popcorn
+Tavares, Vieira and Cruz
+72 0 72Nonfood & Pharmacy 
+popcorn
+Tavares, Vieira and Cruz
+72 0 72Nonfood & Pharmacy 
+popcorn
+Tavares, Vieira and Cruz
+72 0 72Nonfood & Pharmacy 
+popcorn
+Tavares, Vieira and Cruz
+72 0 72Nonfood & Pharmacy 
+popcorn
+Tavares, Vieira and Cruz
+72 0 72F 7 2 0s
+Home Goods
+Home Goods
+laundry detergent
+Vieira - Fernandes
+66 0 66Home Goods
+lemons/limes
+Baptista LTDA
+80 0 80G 6 6 0s
+Dairy
+Dairy
+potato chips
+Costa, Andrade and Mota
+56 0 56Dairy
+spaghetti
+Tavares, Vieira and Cruz
+24 0 24Dairy
+popcorn
 Brito e Associados
-56 0 56J 6 0 0 0s
-Nonfood & Pharmacy 
+10 0 10Dairy
+fruit cocktail
+Nobre - Baptista
+26 0 26Dairy
+fruit cocktail
+Nobre - Baptista
+26 0 26Dairy
+fruit cocktail
+Nobre - Baptista
+26 0 26H 8 5 0s
+DVD rentals
+DVD rentals
+pork roast
+Vieira - Fernandes
+16 0 16DVD rentals
+salad/lettuce
+Brito e Associados
+68 0 68DVD rentals
+salad/lettuce
+Brito e Associados
+68 0 68DVD rentals
+salad/lettuce
+Brito e Associados
+68 0 68DVD rentals
+salad/lettuce
+Brito e Associados
+68 0 68I 7 7 0s
+Personal care
+Personal care
+salmon
+Torres, Nunes and Henriques
+66 0 66Personal care
+half and half
+Machado S.A.
+30 0 30Personal care
+Flour tortillas
+Torres, Nunes and Henriques
+74 0 74Personal care
+hotdogs
+Machado S.A.
+80 0 80Personal care
+cheese sticks
+Baptista LTDA
+68 0 68Personal care
+brown sugar
+Nobre - Baptista
+8 0 8Personal care
+onions
+Nobre - Baptista
+68 0 68

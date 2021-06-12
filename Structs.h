@@ -53,6 +53,22 @@ struct nodeProduct
 
 
 
+struct productsSoldRegist
+{
+	string nome;
+	int price;
+};
+
+
+struct productSoldRegistBST
+{
+	productsSoldRegist productsSold;
+	productSoldRegistBST* right = nullptr;
+	productSoldRegistBST* left = nullptr;
+};
+
+
+
 struct Sector
 {
 	char sectorIdentifier = 0; //user input, we can make so it gets the letter from a char array like ['a', 'b', ...]!
@@ -62,6 +78,8 @@ struct Sector
 	int quantityOfProducts = 0; //Number of products in the sector in that moment
 	nodeProduct* productsInTheSector = nullptr; //array with all the products in the sector
 	int cycles = 0; //used to keep track of discount cycles
+	productSoldRegistBST* productsSold = nullptr;
+	int quantityOfProductsSold = 0;
 };
 
 

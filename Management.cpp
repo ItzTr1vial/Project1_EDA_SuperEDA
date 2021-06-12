@@ -14,71 +14,85 @@
 
 using namespace std;
 
-/*
 
-void removeProduct(const DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage)
+
+void removeProduct(DataNeeded* internalData, nodeSector** superEDA, nodeProduct** storage)
 {
-	string str; 
+	string str;
 	int cont = 0; //cont to know how many products have been deleted
 	cin.ignore();
 
 	cout << "Digite o nome do produto a apagar: ";
 	getline(cin, str);
 
-	for (int i = 0; i < internalData->numberofSectors; i++) //loop that goes through all the sectors
+	nodeSector* tempSector = *superEDA;
+
+	while (tempSector != nullptr)
 	{
-		Product* internproduct = new Product[superEDA[i].quantityOfProducts];
-		int cont1 = 0; //cont that increases to put the products in the array
-		int cont2 = superEDA[i].quantityOfProducts; //cont to hold the quantity of products
+		int count = 0;
+		nodeProduct* tempProduct = tempSector->oneSector.productsInTheSector;
 
-		for (int j = 0; j < cont2; j++)
+		while (tempProduct != nullptr)
 		{
-
-			if (str != superEDA[i].productsInTheSector[j].name) //if the name is different the product is kept
+			if (tempProduct->oneProduct.name == str)
 			{
-				internproduct[cont1++] = superEDA[i].productsInTheSector[j];
-			}
-			else //else it decreases the number of products
-			{
-				superEDA[i].quantityOfProducts--;
+				removeProductSector(tempSector, &tempSector->oneSector.productsInTheSector, count);
+				tempSector->oneSector.quantityOfProducts--;
+				tempProduct = tempSector->oneSector.productsInTheSector;
 				cont++;
+
+				for (int i = 0; i < count; i++)
+				{
+					tempProduct = tempProduct->next;
+				}
 			}
+			else
+			{
+				count++;
+				tempProduct = tempProduct->next;
+			}
+
 		}
 
-		delete[] superEDA[i].productsInTheSector;
-		superEDA[i].productsInTheSector = new Product[superEDA[i].maxNumberOfProducts];
-		superEDA[i].productsInTheSector = internproduct;
+		tempSector = tempSector->next;
 	}
 
-	Product* internproduct = new Product[supermarketStorage->numProducts];
-	int cont1 = 0; //cont that increases to put the products in the array
-	int cont2 = supermarketStorage->numProducts; //cont to hold the number of products in storage
 
-	for (int i = 0; i < cont2; i++)
+
+	nodeProduct* tempStorage = *storage;
+	int count = 0;
+
+
+	while (tempStorage != nullptr)
 	{
-		if (str != supermarketStorage->inStorage[i].name) //if the name is different the product is kept
+		
+
+		if (tempStorage->oneProduct.name == str)
 		{
-			internproduct[cont1++] = supermarketStorage->inStorage[i];
-		}
-		else //else it decreases the number of products
-		{
-			supermarketStorage->numProducts--;
+			removeProductStorage(internalData, storage, count);
+			tempStorage = *storage;
 			cont++;
+
+			for (int i = 0; i < count; i++)
+			{
+				tempStorage = tempStorage->next;
+			}
+
+		}
+		else
+		{
+			tempStorage = tempStorage->next;
+			count++;
 		}
 	}
 
-	delete[] supermarketStorage->inStorage;
-	supermarketStorage->inStorage = new Product[supermarketStorage->numProducts];
-	supermarketStorage->inStorage = internproduct;
-
-	
 	cout << "Foram apagados " << cont << " produto(s)." << endl;
 
 }
 
 
 
-void updatePrice(Storage* supermarketStorage)
+void updatePrice(nodeProduct** storage)
 {
 	cin.ignore();
 	string str;
@@ -105,15 +119,21 @@ void updatePrice(Storage* supermarketStorage)
 		}
 
 	} while (!sair);
-	
 
-	for (int i = 0; i < supermarketStorage->numProducts; i++) //checks for all the products in storage
+
+	nodeProduct* tempProduct = *storage;
+
+
+	while (tempProduct != nullptr)
 	{
-		if (str == supermarketStorage->inStorage[i].name) //if it has the same name the price is updated
+		if (tempProduct->oneProduct.name == str)
 		{
-			supermarketStorage->inStorage[i].price = price;
-			cont += 1;
+			tempProduct->oneProduct.price = price;
+			tempProduct->oneProduct.originalPrice = price;
+			cont++;
 		}
+
+		tempProduct = tempProduct->next;
 	}
 
 	cout << "Foi atualizado o preço a " << cont << " produto(s)." << endl;
@@ -121,45 +141,23 @@ void updatePrice(Storage* supermarketStorage)
 
 
 
-void discount(const DataNeeded* internalData, Sector* superEDA, Storage* supermarketStorage)
+void discount(const DataNeeded* internalData, nodeSector** superEDA, nodeProduct** storage)
 {
-	cin.ignore();
-
 	string str;
 	int cycle = 0, discountPercentage = 0;
 	bool sair = false;
 
 
-
 	cout << "Digite a duraçao da campanha: ";
 	cin >> cycle;
 
+	nodeSector* tempSector = *superEDA;
+
 	cin.ignore();
+	cin.clear();
 
-
-	do //asks and check to see if the area is acceptable;
-	{
-
-		cout << "Digite a area em que quer começar a campanha de descontos: ";
-		getline(cin, str);
-
-		for (int i = 0; i < internalData->sizeofAreasChoosen; i++) //loops through all the number os areas
-		{
-			if (str == internalData->areasChoosenArray[i]) //if the sector belongs to that area it update the number of cycles it will be in discount
-			{
-				superEDA[i].cycles = cycle;
-				sair = true;
-			}
-		}
-
-		if (!sair)
-		{
-			cout << "Essa area não existe, digite uma area existente! " << endl;
-		}
-
-		cin.clear();
-
-	} while (!sair);
+	cout << "Digite a area em que quer começar a campanha de descontos: ";
+	getline(cin, str);
 
 
 	sair = false;
@@ -181,53 +179,66 @@ void discount(const DataNeeded* internalData, Sector* superEDA, Storage* superma
 	} while (!sair);
 
 
-	for (int i = 0; i < internalData->numberofSectors; i++) //loops through all the sectors
+	nodeSector* tempSector1 = *superEDA;
+
+
+	while (tempSector1 != nullptr)
 	{
-		for (int j = 0; j < superEDA[i].quantityOfProducts; j++) //checks each product in the sector
+		nodeProduct* tempProduct = tempSector1->oneSector.productsInTheSector;
+
+		while (tempProduct != nullptr)
 		{
-			if (!superEDA[i].productsInTheSector[j].discountState) //if there isnt a promotion already it proceeds to make the changes
+			if (!tempProduct->oneProduct.discountState)
 			{
-				if (superEDA[i].productsInTheSector[j].area == str)
+				if (tempProduct->oneProduct.area == str)
 				{
-					superEDA[i].productsInTheSector[j].discountState = true;
-					superEDA[i].productsInTheSector[j].price -= (superEDA[i].productsInTheSector[j].price * discountPercentage / 100);
+					tempProduct->oneProduct.discountState = true;
+					tempProduct->oneProduct.price -= (tempProduct->oneProduct.price * discountPercentage / 100);
 				}
 			}
-			else //else it displays an error message
+			else
 			{
 				cout << "Já existe uma campanha de descontos nesta area! " << endl;
 				break;
 			}
-			
+
+			tempProduct = tempProduct->next;
 		}
+
+		tempSector1 = tempSector1->next;
 	}
 
 
-	for (int i = 0; i < supermarketStorage->numProducts; i++) //loops through all the products in storage
+	nodeProduct* tempProduct1 = *storage;
+
+
+	while (tempProduct1 != nullptr)
 	{
-		if (supermarketStorage->inStorage[i].area == str) //if the product belongs to that area
+		if (tempProduct1->oneProduct.area == str)
 		{
-			if (!supermarketStorage->inStorage[i].discountState) //checks if the product already has a promotion, if not proceeds to make the changes
+			if (!tempProduct1->oneProduct.discountState)
 			{
-				supermarketStorage->inStorage[i].discountState = true;
-				supermarketStorage->inStorage[i].price -= (supermarketStorage->inStorage[i].price * discountPercentage / 100);
+				tempProduct1->oneProduct.discountState = true;
+				tempProduct1->oneProduct.price -= (tempProduct1->oneProduct.price * discountPercentage / 100);
 			}
 		}
+
+		tempProduct1 = tempProduct1->next;
 	}
 }
 
 
 
-void saveSuperMarket(const DataNeeded* internalData, const Sector* SuperEDA, const Storage* supermarketStorage, const Filepaths* supermarketFilepath) //calls the functions in files.cpp to save the data
+void saveSuperMarket(DataNeeded* internalData, nodeSector* SuperEDA, nodeProduct* supermarketStorage, const Filepaths* supermarketFilepath) //calls the functions in files.cpp to save the data
 {
 	saveDataNeededToFiles(internalData, supermarketFilepath);
 	saveSectorsToFiles(internalData, SuperEDA, supermarketFilepath);
-	saveStorageToFiles(supermarketStorage, supermarketFilepath);
+	saveStorageToFiles(internalData, supermarketStorage, supermarketFilepath);
 }
 
 
 
-void loadSuperMarket(DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage, Filepaths* supermarketFilepath)
+void loadSuperMarket(DataNeeded* internalData, nodeSector* SuperEDA, nodeProduct* storage, Filepaths* supermarketFilepath)
 {
 	char opcao = ' ';
 	bool sair = false;
@@ -274,48 +285,39 @@ void loadSuperMarket(DataNeeded* internalData, Sector* SuperEDA, Storage* superm
 			break;
 		}
 	} while (!sair);
-	
+
 
 	//calls the funtions from files.cpp to load the data 
 	loadDataNeededFromFiles(internalData, SuperEDA, supermarketFilepath);
-	loadSectorsFromFiles(internalData, SuperEDA, supermarketFilepath);
-	loadStorageFromFiles(supermarketStorage, supermarketFilepath);
+	SuperEDA = loadSectorsFromFiles(internalData, SuperEDA, supermarketFilepath);
+	storage = loadStorageFromFiles(internalData, storage, supermarketFilepath);
 }
 
 
 
-
-
-void printProducts(DataNeeded* internalData, nodeSector* superEDA, nodeProduct* storage)
+void printProducts(DataNeeded* internalData, nodeSector** superEDA, nodeProduct** storage)
 {
-cout << setfill(' ') << endl; //uses spaces to fill
+	cout << setfill(' ') << endl; //uses spaces to fill
 
-	nodeSector* temp = superEDA;
+	nodeSector* temp = *superEDA;
 
 	while (temp->next != nullptr)
 	{
 		nodeProduct* tempProduct = temp->oneSector.productsInTheSector;
 
-		for (int i =0; i<temp->oneSector.quantityOfProducts; i++)
+		for (int i = 0; i < temp->oneSector.quantityOfProducts; i++)
 		{
-			cout << left << setw(8) << "Produto: " << left << setw(20) << tempProduct->oneProduct.name << " | "
+			cout << left << setw(6) << "Nome: " << left << setw(22) << tempProduct->oneProduct.name << " | "
+				<< left << setw(6) << "Area: " << left << setw(20) << tempProduct->oneProduct.area << " | "
 				<< left << setw(7) << "Preço: " << left << setw(4) << tempProduct->oneProduct.price << endl;
 
 			tempProduct = tempProduct->next;
 		}
 
-		cout << "-----------------------------------------------------------------------------------------------------------" << endl;
-
 		temp = temp->next;
 	}
 
-
-	cout << " " << endl;
-	cout << " " << endl;
-	cout << "Armazem: " << endl;
-	cout << " " << endl;
-
-	nodeProduct* tempStorage = storage;
+	nodeProduct* tempStorage = *storage;
 
 	while (tempStorage->next != nullptr)
 	{
@@ -332,8 +334,6 @@ cout << setfill(' ') << endl; //uses spaces to fill
 
 
 
-
-
 void createNewArea(DataNeeded* internalData)
 {
 	cin.ignore();
@@ -344,59 +344,87 @@ void createNewArea(DataNeeded* internalData)
 	{
 		updateArea[i] = internalData->areasChoosenArray[i];
 	}
-	
+
 	cout << "Digite o nome da nova area a criar: ";
 	getline(cin, updateArea[internalData->sizeofAreasChoosen]); //puts the new area to the array
+
 
 	delete[] internalData->areasChoosenArray;
 	internalData->areasChoosenArray = new string[internalData->sizeofAreasChoosen];
 
 	internalData->areasChoosenArray = updateArea;
 	internalData->sizeofAreasChoosen++; //increases the size of the array
-	
+
 }
 
 
 
-void showSalesRegister(DataNeeded* internalData, Sector* superEDA)
+void printBST(productSoldRegistBST* oneProductRegister)
 {
-	cin.ignore();
+	productSoldRegistBST* tempBST = oneProductRegister;
 
-	string str;
-	
-	cout << "Digite o nome do responsavel: ";
-	getline(cin, str);
+	cout << "Produtos vendidos: " << endl;
 
-	for (int i = 0; i < internalData->numberofSectors; i++) //goes through all the sectors
+	while (tempBST != nullptr)
 	{
-		if (superEDA[i].personInCharge == str) //checks which sector has a person with that name and displays all the products sold
-		{
-			cout << " " << endl;
-			cout << " " << endl;
-			cout << superEDA[i].personInCharge << endl;
-			cout << " " << endl;
-			cout << "-----------------------------------------------------------------" << endl;
+		cout << left << setw(6) << "Nome: " << left << setw(22) << tempBST->productsSold.nome << " | "
+			<< left << setw(7) << "Preço: " << left << setw(4) << tempBST->productsSold.price << endl;
 
-			for (int j = 0; j < superEDA[i].quantityOfProductsSold; j++)
-			{
-				cout << left << setw(6) << "Nome: " << left << setw(22) << superEDA[i].sectorRecord[j].name << " | "
-					<< left << setw(7) << "Preço: " << left << setw(4) << superEDA[i].sectorRecord[j].price << endl;
-			}
-
-			cout << "-----------------------------------------------------------------" << endl;
-		}
+		tempBST = tempBST->right;
 	}
 }
 
 
 
+void showSalesRegister(DataNeeded* internalData, nodeSector** superEDA)
+{
+	cin.ignore();
 
-void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* supermarketStorage, Filepaths* supermarketFilepaths)
+	string str;
+
+	cout << "Digite o nome do responsavel: ";
+	getline(cin, str);
+
+	nodeSector* tempSector = *superEDA;
+
+	for (int i = 0; i < internalData->numberofSectors; i++) //goes through all the sectors
+	{
+		if (tempSector->oneSector.personInCharge == str) //checks which sector has a person with that name and displays all the products sold
+		{
+			cout << " " << endl;
+			cout << " " << endl;
+			cout << tempSector->oneSector.personInCharge << endl;
+			cout << " " << endl;
+			cout << "-----------------------------------------------------------------" << endl;
+
+			productSoldRegistBST* tempBST = tempSector->oneSector.productsSold;
+
+			if (tempBST != nullptr)
+			{
+				while (tempBST->left != nullptr)
+				{
+					tempBST = tempBST->left;
+				}
+
+				printBST(tempBST);
+			}
+
+
+			cout << "-----------------------------------------------------------------" << endl;
+		}
+
+		tempSector = tempSector->next;
+	}
+}
+
+
+
+void managementMenu(DataNeeded* internalData, nodeSector** SuperEDA, nodeProduct** storage, Filepaths* supermarketFilepaths)
 {
 	bool sair = false;
 	char opcoes = ' ';
 
-	
+
 
 	do
 	{
@@ -419,22 +447,22 @@ void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* superma
 		switch (opcoes)
 		{
 		case '1':
-			removeProduct(internalData, SuperEDA, supermarketStorage);
+			removeProduct(internalData, SuperEDA, storage);
 			break;
 		case'2':
-			updatePrice(supermarketStorage);
+			updatePrice(storage);
 			break;
 		case'3':
-			discount(internalData, SuperEDA, supermarketStorage);
+			discount(internalData, SuperEDA, storage);
 			break;
 		case'4':
-			saveSuperMarket(internalData, SuperEDA, supermarketStorage, supermarketFilepaths);
+			//saveSuperMarket(internalData, *SuperEDA, *storage, supermarketFilepaths);
 			break;
 		case'5':
-			loadSuperMarket(internalData, SuperEDA, supermarketStorage, supermarketFilepaths);
+			//loadSuperMarket(internalData, *SuperEDA, *storage, supermarketFilepaths);
 			break;
 		case'6':
-			printProducts(internalData, SuperEDA, supermarketStorage);
+			printProducts(internalData, SuperEDA, storage);
 			break;
 		case'7':
 			createNewArea(internalData);
@@ -452,5 +480,9 @@ void managementMenu(DataNeeded* internalData, Sector* SuperEDA, Storage* superma
 		}
 	} while (!sair);
 }
+
+
+
+/*
 
 */

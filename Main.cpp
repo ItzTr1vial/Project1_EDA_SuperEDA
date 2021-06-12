@@ -37,15 +37,18 @@ int main() {
 	internalData->nameArray = getContentFromFiles(supermarketFilepaths->pathNames, internalData->sizeofName); //content of file name
 	internalData->numberofSectors = rand() % 5 + 8; //number of sectors the supermarket is going to have
 	internalData->areasChoosenArray = new string[internalData->numberofSectors];
+	internalData->sizeofAreasChoosen = internalData->numberofSectors;
 	internalData->numberofProductsToCreate = 50; //number of products to create initialy
 	internalData->numProductsInStorage = 0;
 
 
-	nodeSector* superEDA = nullptr; //creates the head pointer to the linked list for all the sectors
-	nodeProduct* Storage = nullptr; //creates the head pointer to all the linked lists for the storage
+	nodeSector* superEDA = new nodeSector; //creates the head pointer to the linked list for all the sectors
+	nodeProduct* Storage = new nodeProduct; //creates the head pointer to all the linked lists for the storage
 
-	superEDA = inicializeSectors(internalData, superEDA);  //function that inicializes all the sectors
-	Storage = updateStorage(internalData, Storage); //function of products 
+	inicializeSectors(internalData, &superEDA);  //function that inicializes all the sectors
+	inicializeStorage(internalData, &Storage); //function of products 
+
+
 
 	menuSupermarket(internalData, superEDA, Storage, supermarketFilepaths);
 
@@ -53,11 +56,6 @@ int main() {
 	delete[] internalData->areaArray; //since we already choose which areas to use this array is no longer needed
 	
 	/*
-	supermarketStorage->inStorage = inicializeProducts(internalData); //function that inicializes the first 50 products
-	supermarketStorage->numProducts = 50; //number of products created in the beggining
-	internalData->numberofProductsToCreate = 10; //numbers of products to create each time after that
-
-	menuSupermarket(internalData, superEDA, supermarketStorage, supermarketFilepaths);// Show the menu with the current display of the supermarket
 
 	delete[] superEDA;
 	delete supermarketStorage;

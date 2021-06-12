@@ -60,7 +60,7 @@ string* getContentFromFiles(string path, int sizeofFile) {  //receives the path 
 }
 
 
-/*
+
 void saveDataNeededToFiles(const DataNeeded* internalData, const Filepaths* supermarketFilepaths)
 {
 	fstream file;
@@ -75,7 +75,7 @@ void saveDataNeededToFiles(const DataNeeded* internalData, const Filepaths* supe
 
 		for (int i = 0; i < internalData->sizeofAreasChoosen; i++) //saves this array
 		{
-			file << internalData->areasChoosenArray[i] << endl; 
+			file << internalData->areasChoosenArray[i] << endl;
 		}
 
 		for (int i = 0; i < internalData->sizeofProvider; i++) //saves this array
@@ -99,7 +99,7 @@ void saveDataNeededToFiles(const DataNeeded* internalData, const Filepaths* supe
 
 
 
-void saveSectorsToFiles(const DataNeeded* internalData, const Sector* SuperEDA, const Filepaths* supermarketFilepaths)
+void saveSectorsToFiles(const DataNeeded* internalData, nodeSector* SuperEDA, const Filepaths* supermarketFilepaths)
 {
 	fstream file;
 	file.open(supermarketFilepaths->pathSectors, ios::out);
@@ -108,31 +108,32 @@ void saveSectorsToFiles(const DataNeeded* internalData, const Sector* SuperEDA, 
 
 	if (file.is_open())
 	{
-		for (int i = 0; i < internalData->numberofSectors; i++)
+		nodeSector* tempSector = SuperEDA;
+
+
+		while (tempSector != nullptr)
 		{
-			file << SuperEDA[i].sectorIdentifier << " " << SuperEDA[i].maxNumberOfProducts 
-				<< " " << SuperEDA[i].quantityOfProducts << " " << SuperEDA[i].quantityOfProductsSold
-				<< " " << SuperEDA[i].cycles;  //saves the data that is not an array
+			file << tempSector->oneSector.sectorIdentifier << " " << tempSector->oneSector.maxNumberOfProducts
+				<< " " << tempSector->oneSector.quantityOfProducts << " " << tempSector->oneSector.cycles;  //saves the data that is not an array
 
-			file << SuperEDA[i].personInCharge << endl; //saves the name of the person in charge
-			file << SuperEDA[i].area << endl; //saves the area of the sector
+			file << tempSector->oneSector.personInCharge << endl; //saves the name of the person in charge
+			file << tempSector->oneSector.area << endl; //saves the area of the sector
 
-			for (int j = 0; j < SuperEDA[i].quantityOfProducts; j++) //saves the array of products
+			nodeProduct* tempProduct = tempSector->oneSector.productsInTheSector;
+
+			while (tempProduct != nullptr)
 			{
-				file << SuperEDA[i].productsInTheSector[j].area << endl;
-				file << SuperEDA[i].productsInTheSector[j].name << endl;
-				file << SuperEDA[i].productsInTheSector[j].provider << endl;
-				file << SuperEDA[i].productsInTheSector[j].price << " " 
-					<< SuperEDA[i].productsInTheSector[j].discountState << " "
-				<< SuperEDA[i].productsInTheSector[j].originalPrice;
+				file << tempProduct->oneProduct.area << endl;
+				file << tempProduct->oneProduct.name << endl;
+				file << tempProduct->oneProduct.provider << endl;
+				file << tempProduct->oneProduct.price << " "
+					<< tempProduct->oneProduct.discountState << " "
+					<< tempProduct->oneProduct.originalPrice;
+
+				tempProduct = tempProduct->next;
 			}
 
-			for (int j = 0; j < SuperEDA[i].quantityOfProductsSold; j++) //saves the array of products sold
-			{
-				file << SuperEDA[i].sectorRecord[j].name << endl;
-				file << SuperEDA[i].sectorRecord[j].price;
-				
-			}
+			tempSector = tempSector->next;
 		}
 	}
 	else
@@ -146,7 +147,7 @@ void saveSectorsToFiles(const DataNeeded* internalData, const Sector* SuperEDA, 
 
 
 
-void saveStorageToFiles(const Storage* supermarketStorage, const Filepaths* supermarketFilepaths)
+void saveStorageToFiles(DataNeeded* internalData, nodeProduct* storage, const Filepaths* supermarketFilepaths)
 {
 	fstream file;
 	file.open(supermarketFilepaths->pathStorage, ios::out);
@@ -155,17 +156,23 @@ void saveStorageToFiles(const Storage* supermarketStorage, const Filepaths* supe
 
 	if (file.is_open())
 	{
-		file << supermarketStorage->numProducts; //saves the number of products that exist in storage
-		
-		for (int i = 0; i < supermarketStorage->numProducts; i++) //saves all the products in storage
+		nodeProduct* tempProduct = storage;
+
+		file << internalData->numProductsInStorage; //saves the number of products that exist in storage
+
+		while (tempProduct != nullptr)
 		{
-			file << supermarketStorage->inStorage[i].area << endl;
-			file << supermarketStorage->inStorage[i].provider << endl;
-			file << supermarketStorage->inStorage[i].name << endl;
-			file << supermarketStorage->inStorage[i].price << " "
-				<< supermarketStorage->inStorage[i].discountState << " "
-				<< supermarketStorage->inStorage[i].originalPrice;
+			file << tempProduct->oneProduct.area << endl;
+			file << tempProduct->oneProduct.provider << endl;
+			file << tempProduct->oneProduct.name << endl;
+			file << tempProduct->oneProduct.price << " "
+				<< tempProduct->oneProduct.discountState << " "
+				<< tempProduct->oneProduct.originalPrice;
+
+			tempProduct = tempProduct->next;
+
 		}
+
 	}
 	else
 	{
@@ -177,7 +184,7 @@ void saveStorageToFiles(const Storage* supermarketStorage, const Filepaths* supe
 
 
 
-void loadDataNeededFromFiles(DataNeeded* internalData, Sector* superEDA, Filepaths* supermarketFilepaths)
+void loadDataNeededFromFiles(DataNeeded* internalData, nodeSector* superEDA, Filepaths* supermarketFilepaths)
 {
 	fstream file;
 	file.open(supermarketFilepaths->pathDataNeeded, ios::in);
@@ -190,7 +197,7 @@ void loadDataNeededFromFiles(DataNeeded* internalData, Sector* superEDA, Filepat
 	if (file.is_open())
 	{
 		//deletes the arrays that contain the data
-		delete[] internalData->areasChoosenArray;  
+		delete[] internalData->areasChoosenArray;
 		delete[] internalData->providerArray;
 		delete[] internalData->nameArray;
 
@@ -199,7 +206,7 @@ void loadDataNeededFromFiles(DataNeeded* internalData, Sector* superEDA, Filepat
 			>> internalData->sizeofName >> internalData->numberofProductsToCreate; //loads the data that is not in an array
 
 		//allocates the memory needed for the arrays
-		internalData->areasChoosenArray = new string[internalData->sizeofAreasChoosen]; 
+		internalData->areasChoosenArray = new string[internalData->sizeofAreasChoosen];
 		internalData->providerArray = new string[internalData->sizeofProvider];
 		internalData->nameArray = new string[internalData->sizeofName];
 
@@ -232,7 +239,7 @@ void loadDataNeededFromFiles(DataNeeded* internalData, Sector* superEDA, Filepat
 
 
 
-void loadSectorsFromFiles(DataNeeded* internalData, Sector* superEDA, Filepaths* supermarketFilepaths)
+nodeSector* loadSectorsFromFiles(DataNeeded* internalData, nodeSector* superEDA, Filepaths* supermarketFilepaths)
 {
 	fstream file;
 	file.open(supermarketFilepaths->pathSectors, ios::in);
@@ -243,54 +250,317 @@ void loadSectorsFromFiles(DataNeeded* internalData, Sector* superEDA, Filepaths*
 
 	if (file.is_open())
 	{
+		nodeSector* tempSector = superEDA;
 
-		delete[] superEDA; //deletes the array that contains every information about the sectors
-		Sector* superEDA = new Sector[internalData->numberofSectors]; //allocates the memory needed
-		
+		while (superEDA != nullptr)
+		{
+			superEDA = superEDA->next;
+			delete tempSector;
+			tempSector = superEDA;
+		}
+
+		nodeSector* superEDA = nullptr;
 
 		for (int i = 0; i < internalData->numberofSectors; i++)
 		{
-
-			file >> superEDA[i].sectorIdentifier >> superEDA[i].maxNumberOfProducts 
-				>> superEDA[i].quantityOfProducts >> superEDA[i].quantityOfProductsSold
-				>> superEDA[i].cycles; //loads all the data that is in an array an is not a string
-
-			getline(file, str);
-			superEDA[i].personInCharge = str; //loads the name of the person in charge
-
-			getline(file, str);
-			superEDA[i].area = str; //loads the area of the sector
-
-			superEDA[i].productsInTheSector = new Product[superEDA[i].maxNumberOfProducts]; //allocates the memory needed for the products
-			superEDA[i].sectorRecord = new ProductSoldRecord[superEDA[i].quantityOfProductsSold]; //allocates the memory needed for the record of products sold
-
-
-
-			for (int j = 0; j < superEDA[i].quantityOfProducts; j++) //loads the products into the sectores
+			if (superEDA == nullptr)
 			{
-				getline(file, str);
-				superEDA[i].productsInTheSector[j].area = str;
-
-				getline(file, str);
-				superEDA[i].productsInTheSector[j].name = str;
-
-				getline(file, str);
-				superEDA[i].productsInTheSector[j].provider = str;
-
-				file >> superEDA[i].productsInTheSector[j].price >> superEDA[i].productsInTheSector[j].discountState
-				>> superEDA[i].productsInTheSector[j].originalPrice;
+				nodeSector* novo = new nodeSector;
 				
-			}
+				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
+					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
 
-			for (int j = 0; j < superEDA[i].quantityOfProductsSold; j++) //loads the data of the products sold
-			{
 				getline(file, str);
-				superEDA[i].sectorRecord[j].name = str;
-				file >> superEDA[i].sectorRecord[j].price;
+				novo->oneSector.personInCharge = str; //loads the name of the person in charge
+
+				getline(file, str);
+				novo->oneSector.area = str; //loads the area of the sector
+
+				novo->oneSector.productsInTheSector = nullptr;
+
+				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++)
+				{
+					if (novo->oneSector.productsInTheSector == nullptr)
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+						novoProduto->next = nullptr;
+
+						novo->oneSector.productsInTheSector = novoProduto;
+
+					}
+					else
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+						nodeProduct* tempProduct = novo->oneSector.productsInTheSector;
+
+						while (tempProduct->next != nullptr)
+						{
+							tempProduct = tempProduct->next;
+						}
+
+						tempProduct->next = novoProduto;
+					}
+				}
+
+				novo->next = nullptr;
+				superEDA = novo;
+
+			}
+			else
+			{
+				nodeSector* novo = new nodeSector;
+
+				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
+					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
+
+				getline(file, str);
+				novo->oneSector.personInCharge = str; //loads the name of the person in charge
+
+				getline(file, str);
+				novo->oneSector.area = str; //loads the area of the sector
+
+				novo->oneSector.productsInTheSector = nullptr;
+
+				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++)
+				{
+					if (novo->oneSector.productsInTheSector == nullptr)
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+						novoProduto->next = nullptr;
+
+						novo->oneSector.productsInTheSector = novoProduto;
+
+					}
+					else
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+						nodeProduct* tempProduct = novo->oneSector.productsInTheSector;
+
+						while (tempProduct->next != nullptr)
+						{
+							tempProduct = tempProduct->next;
+						}
+
+						tempProduct->next = novoProduto;
+					}
+				}
+
+				nodeSector* tempSector = superEDA;
+
+				while (tempSector->next != nullptr)
+				{
+					tempSector = tempSector->next;
+				}
+
+				tempSector->next = novo;
 			}
 		}
 
-		
+		return superEDA;
+
+		/*
+		for (int i = 0; i < internalData->numberofSectors; i++)
+		{
+			if (tempSector1 == nullptr) //for the first item on the linked list
+			{
+				nodeSector* novo = new nodeSector;
+				
+				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
+					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
+
+				getline(file, str);
+				novo->oneSector.personInCharge = str; //loads the name of the person in charge
+
+				getline(file, str);
+				novo->oneSector.area = str; //loads the area of the sector
+
+				novo->oneSector.productsInTheSector = nullptr;
+
+
+				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++) //loads the products into the sectores
+				{
+					if (novo->oneSector.productsInTheSector == nullptr)
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+						novoProduto->next = nullptr;
+						novo->oneSector.productsInTheSector = novoProduto;
+
+					}
+					else
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+
+						while (novo->oneSector.productsInTheSector->next != nullptr)
+						{
+							novo->oneSector.productsInTheSector = novo->oneSector.productsInTheSector->next;
+						}
+
+						novo->oneSector.productsInTheSector->next = novoProduto;
+					}
+
+				}
+				
+				novo->next = nullptr;
+				tempSector1 = novo;
+			}
+			else //for all the others
+			{
+				nodeSector* novo = new nodeSector; //creates a new node
+
+				file >> novo->oneSector.sectorIdentifier >> novo->oneSector.maxNumberOfProducts
+					>> novo->oneSector.quantityOfProducts >> novo->oneSector.cycles; //loads all the data that is in an array an is not a string
+
+				getline(file, str);
+				novo->oneSector.personInCharge = str; //loads the name of the person in charge
+
+				getline(file, str);
+				novo->oneSector.area = str; //loads the area of the sector
+				
+				nodeSector* temp = tempSector1; //creates a temporary node that will receive the header address
+
+				while (temp->next != nullptr) //loops trough all the items on the linked list until it points to a null pointer
+				{
+					temp = temp->next;
+				}
+
+				novo->oneSector.productsInTheSector = nullptr;
+
+
+				for (int j = 0; j < novo->oneSector.quantityOfProducts; j++) //loads the products into the sectores
+				{
+					if (novo->oneSector.productsInTheSector == nullptr)
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+						novoProduto->next = nullptr;
+						novo->oneSector.productsInTheSector = novoProduto;
+
+					}
+					else
+					{
+						nodeProduct* novoProduto = new nodeProduct;
+
+						getline(file, str);
+						novoProduto->oneProduct.area = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.name = str;
+
+						getline(file, str);
+						novoProduto->oneProduct.provider = str;
+
+						file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+							>> novoProduto->oneProduct.originalPrice;
+
+
+						while (novo->oneSector.productsInTheSector->next != nullptr)
+						{
+							novo->oneSector.productsInTheSector = novo->oneSector.productsInTheSector->next;
+						}
+
+						novo->oneSector.productsInTheSector->next = novoProduto;
+					}
+
+				}
+
+				temp->next = novo; //adds the product to the end of the linked list
+			}
+		}
+
+		return tempSector1;
+
+		*/
+
 	}
 	else
 	{
@@ -305,7 +575,7 @@ void loadSectorsFromFiles(DataNeeded* internalData, Sector* superEDA, Filepaths*
 
 
 
-void loadStorageFromFiles(Storage* supermarketStorage, Filepaths* supermarketFilepaths)
+nodeProduct* loadStorageFromFiles(DataNeeded* internalData, nodeProduct* storage, Filepaths* supermarketFilepaths)
 {
 	fstream file;
 	file.open(supermarketFilepaths->pathStorage, ios::in);
@@ -316,25 +586,67 @@ void loadStorageFromFiles(Storage* supermarketStorage, Filepaths* supermarketFil
 
 	if (file.is_open())
 	{
-		delete[] supermarketStorage->inStorage; //deletes the previous storage
 
-		file >> supermarketStorage->numProducts; //loads the number of products
+		nodeProduct* tempProduct = storage;
 
-		supermarketStorage->inStorage = new Product[supermarketStorage->numProducts]; //alocates all the memory needed
-		
-		for (int i = 0; i < supermarketStorage->numProducts; i++) //loads all the products into storage
+		while (storage != nullptr)
 		{
-			getline(file, str);
-			supermarketStorage->inStorage[i].area = str;
+			storage = storage->next;
+			delete tempProduct;
+			tempProduct = storage;
+		}
 
-			getline(file, str);
-			supermarketStorage->inStorage[i].provider = str;
+		file >> internalData->numProductsInStorage; //loads the number of products
 
-			getline(file, str);
-			supermarketStorage->inStorage[i].name = str;
+		nodeProduct* tempProduct1 = nullptr;
 
-			file >> supermarketStorage->inStorage[i].price >> supermarketStorage->inStorage[i].discountState
-				>> supermarketStorage->inStorage[i].originalPrice;
+
+		for (int i = 0; i < internalData->numProductsInStorage; i++) //loads all the products into storage
+		{
+			if (tempProduct1 == nullptr)
+			{
+				nodeProduct* novoProduto = new nodeProduct;
+
+				getline(file, str);
+				novoProduto->oneProduct.area = str;
+
+				getline(file, str);
+				novoProduto->oneProduct.provider = str;
+
+				getline(file, str);
+				novoProduto->oneProduct.name = str;
+
+				file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+					>> novoProduto->oneProduct.originalPrice;
+
+				novoProduto->next = nullptr;
+				tempProduct1 = novoProduto;
+			}
+			else
+			{
+				nodeProduct* novoProduto = new nodeProduct;
+
+				getline(file, str);
+				novoProduto->oneProduct.area = str;
+
+				getline(file, str);
+				novoProduto->oneProduct.provider = str;
+
+				getline(file, str);
+				novoProduto->oneProduct.name = str;
+
+				file >> novoProduto->oneProduct.price >> novoProduto->oneProduct.discountState
+					>> novoProduto->oneProduct.originalPrice;
+
+				while (tempProduct1->next != nullptr)
+				{
+					tempProduct1 = tempProduct1->next;
+				}
+
+				tempProduct1 = novoProduto;
+			}
+
+			return tempProduct1;
 		}
 	}
 	else
@@ -345,5 +657,5 @@ void loadStorageFromFiles(Storage* supermarketStorage, Filepaths* supermarketFil
 	file.close();
 }
 
-*/
+
 
