@@ -1,1 +1,3 @@
-Project1_EDA_SuperEDA
+Project for the Data Structures and Algorithms course
+
+
